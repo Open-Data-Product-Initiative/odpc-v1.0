@@ -12,6 +12,7 @@ toc_footers:
 includes:
   
   - contributors
+  - terms
 
 search: true
 
