@@ -31,9 +31,33 @@ catalog:
   version: 1.0.0
   status: active
   catalogItems:
-    - CI-001
-    - CI-002
-    - CI-003
+    - id: CI-001
+      name:
+        en: Urban Mobility Data Product
+      description:
+        en: Catalog item for a data product supporting traffic flow, mobility planning, and transport operations.
+      itemType: productReference
+      referenceId: DP-001
+      status: active
+      priority: high
+      tags:
+        - mobility
+        - transport
+        - traffic
+
+    - id: CI-002
+      name:
+        en: Emergency Response Optimization Use Case
+      description:
+        en: Catalog item for a use case focused on reducing emergency response time through better situational awareness.
+      itemType: useCase
+      referenceId: UC-001
+      status: active
+      priority: high
+      tags:
+        - emergency-response
+        - public-safety
+        - operations
   tags:
     - smart-city
     - portfolio
