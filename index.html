@@ -356,9 +356,6 @@
                   <li>
                     <a href="#main-odpc-objects" class="toc-h2 toc-link" data-title="Main ODPC objects">Main ODPC objects</a>
                   </li>
-                  <li>
-                    <a href="#productreference" class="toc-h2 toc-link" data-title="ProductReference">ProductReference</a>
-                  </li>
               </ul>
           </li>
           <li>
@@ -455,7 +452,7 @@ Development of the specification is under the umbrella of the Linux Foundation. 
 
 <p>ODPC is part of the OpenDataProducts.org standards family. It complements the Open Data Product Specification, ODPS, by adding the catalog and portfolio layer around individual data products.</p>
 
-<p>ODPS defines one data product. ODPC defines the reusable portfolio objects around data products. Open Data Product Graphs, ODPG, defines the relationships between those objects.</p>
+<p>ODPS defines one data product. ODPC defines the reusable portfolio objects around data products. <a href="https://opendataproducts.org/odpg-v1.0/">Open Data Product Graphs, ODPG</a>, defines the relationships between those objects.</p>
 
 <p>The goal of ODPC is to help organizations move from isolated data product descriptions to managed data product portfolios that connect products to demand, use cases, business objectives, and measurable outcomes.</p>
 <h2 id='odpc-is-odps-native-but-not-odps-only'>ODPC is ODPS-native, but not ODPS-only</h2>
@@ -546,17 +543,11 @@ Development of the specification is under the umbrella of the Linux Foundation. 
 <li>ProductReference</li>
 <li>UseCase</li>
 <li>BusinessObjective</li>
-<li>KPI</li>
 <li>Signal</li>
 <li>Catalog</li>
-<li>CatalogItem</li>
 </ul>
 
 <p>These objects are designed to be reusable across catalogs, tools, AI workflows, and graph models.</p>
-<h2 id='productreference'>ProductReference</h2>
-<p>ProductReference is the bridge between ODPC and the actual source product definition.</p>
-
-<p>It can point to an ODPS file, a DPDS descriptor, an internal product model, a vendor catalog asset, or another metadata source.</p>
 <h1 id='productreference'>ProductReference</h1>
 <p>The <code>ProductReference</code> object defines a lightweight catalog reference to a data product. It identifies the product, provides the key information needed for catalog discovery, and points to the authoritative product definition through <code>productModel</code>.</p>
 
