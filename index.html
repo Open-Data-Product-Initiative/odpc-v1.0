@@ -383,6 +383,12 @@
                   <li>
                     <a href="#attributes-and-options" class="toc-h2 toc-link" data-title="Attributes and options">Attributes and options</a>
                   </li>
+                  <li>
+                    <a href="#mandatory" class="toc-h2 toc-link" data-title="Mandatory">Mandatory</a>
+                  </li>
+                  <li>
+                    <a href="#optional" class="toc-h2 toc-link" data-title="Optional">Optional</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -839,16 +845,31 @@ Development of the specification is under the umbrella of the Linux Foundation. 
     <span class="pi">-</span> <span class="na">en</span><span class="pi">:</span> <span class="s">Transport Digital Transformation Program</span>
   <span class="na">owner</span><span class="pi">:</span>
     <span class="na">organization</span><span class="pi">:</span> <span class="s">Example Transport Authority</span>
+    <span class="na">team</span><span class="pi">:</span> <span class="s">Business Analytics</span>
     <span class="na">role</span><span class="pi">:</span> <span class="s">Strategy Lead</span>
+  <span class="na">expectedOutcomes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">en</span><span class="pi">:</span> <span class="s">Shorter average travel times across key corridors.</span>
+    <span class="pi">-</span> <span class="na">en</span><span class="pi">:</span> <span class="s">Improved public transport reliability.</span>
+    <span class="pi">-</span> <span class="na">en</span><span class="pi">:</span> <span class="s">Better coordination between road, traffic, and public transport operations.</span>
   <span class="na">kpis</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="s">KPI-001</span>
-    <span class="pi">-</span> <span class="s">KPI-002</span>
+    <span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">KPI-001</span>
+      <span class="na">name</span><span class="pi">:</span>
+        <span class="na">en</span><span class="pi">:</span> <span class="s">Average Travel Time Reduction</span>
+      <span class="na">description</span><span class="pi">:</span>
+        <span class="na">en</span><span class="pi">:</span> <span class="s">Measures reduction in average travel time across selected mobility corridors.</span>
+      <span class="na">unit</span><span class="pi">:</span> <span class="s">percentage</span>
+      <span class="na">baseline</span><span class="pi">:</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="m">0</span>
+        <span class="na">date</span><span class="pi">:</span> <span class="s">2025-10-31</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="m">10</span>
+        <span class="na">date</span><span class="pi">:</span> <span class="s">2026-12-31</span>
   <span class="na">timeframe</span><span class="pi">:</span>
     <span class="na">startDate</span><span class="pi">:</span> <span class="s">2026-01-01</span>
     <span class="na">endDate</span><span class="pi">:</span> <span class="s">2026-12-31</span>
   <span class="na">status</span><span class="pi">:</span> <span class="s">active</span>
   <span class="na">priority</span><span class="pi">:</span> <span class="s">high</span>
-</code></pre></div>
+</code></pre></div><h2 id='mandatory'>Mandatory</h2>
 <table><thead>
 <tr>
 <th>Element</th>
@@ -858,88 +879,194 @@ Development of the specification is under the umbrella of the Linux Foundation. 
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>businessObjective</strong></td>
+<td><code>businessObjective</code></td>
 <td>object</td>
 <td>required</td>
-<td>Top-level object that describes a reusable business objective.</td>
+<td>Top-level object that defines a business objective in ODPC.</td>
 </tr>
 <tr>
-<td><strong>id</strong></td>
+<td><code>id</code></td>
 <td>string</td>
 <td>required</td>
 <td>Stable identifier for the business objective.</td>
 </tr>
 <tr>
-<td><strong>name</strong></td>
+<td><code>name</code></td>
 <td>object</td>
-<td>language-tagged strings</td>
-<td>Human-readable objective name.</td>
+<td>required, language-tagged strings</td>
+<td>Human-readable business objective name.</td>
 </tr>
 <tr>
-<td><strong>description</strong></td>
-<td>object</td>
-<td>language-tagged strings</td>
-<td>Natural-language explanation of the intended outcome.</td>
+<td><code>name.en</code></td>
+<td>string</td>
+<td>required</td>
+<td>English name of the business objective.</td>
 </tr>
 <tr>
-<td><strong>strategicAlignment</strong></td>
+<td><code>description</code></td>
+<td>object</td>
+<td>required, language-tagged strings</td>
+<td>Short explanation of the business objective, its purpose, and expected direction.</td>
+</tr>
+<tr>
+<td><code>description.en</code></td>
+<td>string</td>
+<td>required</td>
+<td>English description of the business objective.</td>
+</tr>
+</tbody></table>
+<h2 id='optional'>Optional</h2>
+<table><thead>
+<tr>
+<th>Element</th>
+<th>Type</th>
+<th>Options</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>strategicAlignment</code></td>
 <td>array of objects</td>
+<td>optional</td>
+<td>Strategic programs, policies, visions, mandates, or transformation initiatives the business objective supports.</td>
+</tr>
+<tr>
+<td><code>strategicAlignment[]</code></td>
+<td>object</td>
 <td>language-tagged strings</td>
-<td>Strategies, programs, policies, or plans the objective supports.</td>
+<td>One strategic alignment statement.</td>
 </tr>
 <tr>
-<td><strong>owner</strong></td>
+<td><code>owner</code></td>
 <td>object</td>
 <td>optional</td>
-<td>Ownership information for the objective.</td>
+<td>Ownership information for the business objective.</td>
 </tr>
 <tr>
-<td><strong>organization</strong></td>
+<td><code>owner.organization</code></td>
 <td>string</td>
 <td>optional</td>
-<td>Organization responsible for the objective.</td>
+<td>Organization responsible for the business objective.</td>
 </tr>
 <tr>
-<td><strong>role</strong></td>
+<td><code>owner.team</code></td>
 <td>string</td>
 <td>optional</td>
-<td>Responsible role, such as Strategy Lead or Business Owner.</td>
+<td>Team responsible for the business objective.</td>
 </tr>
 <tr>
-<td><strong>kpis</strong></td>
-<td>array of strings</td>
+<td><code>owner.role</code></td>
+<td>string</td>
 <td>optional</td>
-<td>IDs of KPI objects used to measure progress toward the objective.</td>
+<td>Responsible role, such as Strategy Lead, Product Owner, or Performance Lead.</td>
 </tr>
 <tr>
-<td><strong>timeframe</strong></td>
+<td><code>expectedOutcomes</code></td>
+<td>array of objects</td>
+<td>optional</td>
+<td>Business outcomes expected from achieving the objective.</td>
+</tr>
+<tr>
+<td><code>expectedOutcomes[]</code></td>
+<td>object</td>
+<td>language-tagged strings</td>
+<td>One expected outcome statement.</td>
+</tr>
+<tr>
+<td><code>kpis</code></td>
+<td>array of objects</td>
+<td>optional</td>
+<td>Measurable indicators used to track progress against the business objective. KPIs are nested inside <code>businessObjective</code>, not defined as top-level ODPC objects.</td>
+</tr>
+<tr>
+<td><code>kpis.id</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Stable identifier for the KPI within the business objective.</td>
+</tr>
+<tr>
+<td><code>kpis.name</code></td>
+<td>object</td>
+<td>optional, language-tagged strings</td>
+<td>Human-readable KPI name.</td>
+</tr>
+<tr>
+<td><code>kpis.description</code></td>
+<td>object</td>
+<td>optional, language-tagged strings</td>
+<td>Explanation of what the KPI measures.</td>
+</tr>
+<tr>
+<td><code>kpis.unit</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Unit used for the KPI value, such as <code>percentage</code>, <code>count</code>, <code>days</code>, <code>AED</code>, or <code>score</code>.</td>
+</tr>
+<tr>
+<td><code>kpis.baseline</code></td>
 <td>object</td>
 <td>optional</td>
-<td>Start and end dates for the objective.</td>
+<td>Starting measurement used as the comparison point.</td>
 </tr>
 <tr>
-<td><strong>startDate</strong></td>
-<td>string</td>
-<td>ISO 8601 date (YYYY-MM-DD)</td>
-<td>Date when the objective becomes active.</td>
+<td><code>kpis.baseline.value</code></td>
+<td>number</td>
+<td>optional</td>
+<td>Baseline value.</td>
 </tr>
 <tr>
-<td><strong>endDate</strong></td>
-<td>string</td>
-<td>ISO 8601 date (YYYY-MM-DD)</td>
-<td>Date when the objective ends or is planned to end.</td>
+<td><code>kpis.baseline.date</code></td>
+<td>date</td>
+<td>optional</td>
+<td>Date when the baseline value was measured.</td>
 </tr>
 <tr>
-<td><strong>status</strong></td>
-<td>string</td>
-<td>e.g., <code>planned</code>, <code>active</code>, <code>at_risk</code>, <code>achieved</code>, <code>cancelled</code>, <code>expired</code></td>
-<td>Lifecycle status of the business objective.</td>
+<td><code>kpis.target</code></td>
+<td>object</td>
+<td>optional</td>
+<td>Target measurement expected for the KPI.</td>
 </tr>
 <tr>
-<td><strong>priority</strong></td>
+<td><code>kpis.target.value</code></td>
+<td>number</td>
+<td>optional</td>
+<td>Target value.</td>
+</tr>
+<tr>
+<td><code>kpis.target.date</code></td>
+<td>date</td>
+<td>optional</td>
+<td>Date when the target should be reached.</td>
+</tr>
+<tr>
+<td><code>timeframe</code></td>
+<td>object</td>
+<td>optional</td>
+<td>Time period during which the business objective is active or expected to be achieved.</td>
+</tr>
+<tr>
+<td><code>timeframe.startDate</code></td>
+<td>date</td>
+<td>optional</td>
+<td>Start date for the business objective.</td>
+</tr>
+<tr>
+<td><code>timeframe.endDate</code></td>
+<td>date</td>
+<td>optional</td>
+<td>End date for the business objective.</td>
+</tr>
+<tr>
+<td><code>status</code></td>
 <td>string</td>
-<td>e.g., <code>low</code>, <code>medium</code>, <code>high</code>, <code>critical</code></td>
-<td>Priority used for portfolio and investment decisions.</td>
+<td>optional</td>
+<td>Lifecycle status of the business objective, such as <code>draft</code>, <code>active</code>, <code>paused</code>, <code>completed</code>, or <code>retired</code>.</td>
+</tr>
+<tr>
+<td><code>priority</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Relative importance of the business objective, such as <code>low</code>, <code>medium</code>, <code>high</code>, or <code>critical</code>.</td>
 </tr>
 </tbody></table>
 <h1 id='signal'>Signal</h1>
