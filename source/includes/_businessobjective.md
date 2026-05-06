@@ -2,9 +2,11 @@
 
 The `BusinessObjective` object defines a higher-level business, operational, policy, or strategic objective that data products and use cases contribute to. It captures the outcome the organization wants to achieve and provides the portfolio-level anchor for value management.
 
-In ODPC, business objectives help move data product management from asset lists to outcome-driven portfolios. They make it possible to understand which data products support strategic goals, which use cases contribute to measurable outcomes, and where gaps exist.
+In ODPC, business objectives help move data product management from asset lists to outcome-driven portfolios. They help clarify which data products support strategic goals, which use cases contribute to measurable outcomes, and where gaps exist.
 
-A `BusinessObjective` can be measured by one or more KPIs. It can also be referenced by use cases, catalog items, or graph relationships. The objective should remain reusable and stable across products and use cases.
+A `BusinessObjective` can include one or more KPIs to measure progress against the objective. KPI definitions stay inside the `BusinessObjective` object, not as top-level ODPC objects.
+
+Connections between objectives, use cases, data products, catalog items, and graph relationships are defined outside ODPC, for example in Open Data Product Graphs.
 
 By defining objectives as catalog objects, ODPC supports prioritization, investment decisions, governance reviews, AI-assisted portfolio analysis, and reporting on business value.
 
