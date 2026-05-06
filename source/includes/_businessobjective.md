@@ -12,15 +12,6 @@ By defining objectives as catalog objects, ODPC supports prioritization, investm
 
 ## Mandatory
 
-| Element             | Type   | Options                           | Description                                                                       |
-| ------------------- | ------ | --------------------------------- | --------------------------------------------------------------------------------- |
-| `businessObjective` | object | required                          | Top-level object that defines a business objective in ODPC.                       |
-| `id`                | string | required                          | Stable identifier for the business objective.                                     |
-| `name`              | object | required, language-tagged strings | Human-readable business objective name.                                           |
-| `name.en`           | string | required                          | English name of the business objective.                                           |
-| `description`       | object | required, language-tagged strings | Short explanation of the business objective, its purpose, and expected direction. |
-| `description.en`    | string | required                          | English description of the business objective.                                    |
-
 > Example of BusinessObjective object usage:
 
 ```yml
@@ -60,6 +51,17 @@ businessObjective:
   status: active
   priority: high
 ```
+
+| Element             | Type   | Options                           | Description                                                                       |
+| ------------------- | ------ | --------------------------------- | --------------------------------------------------------------------------------- |
+| `businessObjective` | object | required                          | Top-level object that defines a business objective in ODPC.                       |
+| `id`                | string | required                          | Stable identifier for the business objective.                                     |
+| `name`              | object | required, language-tagged strings | Human-readable business objective name.                                           |
+| `name.en`           | string | required                          | English name of the business objective.                                           |
+| `description`       | object | required, language-tagged strings | Short explanation of the business objective, its purpose, and expected direction. |
+| `description.en`    | string | required                          | English description of the business objective.                                    |
+
+
 
 
 ## Optional 
