@@ -14,7 +14,7 @@ By defining use cases as reusable catalog objects, ODPC enables discovery, prior
 
 ## Mandatory attributes and options
 
-> Example of BusinessObjective object usage:
+> Example of useCase object usage:
 
 ```yml
 useCase:
@@ -38,7 +38,7 @@ useCase:
 
 ## Optional attributes and options
 
-> Example of BusinessObjective object usage:
+> Example of useCase object usage:
 
 ```yml
 useCase:
