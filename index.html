@@ -365,7 +365,10 @@
             <a href="#productreference" class="toc-h1 toc-link" data-title="ProductReference">ProductReference</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#attributes-and-options" class="toc-h2 toc-link" data-title="Attributes and options">Attributes and options</a>
+                    <a href="#mandatory-attributes-and-options" class="toc-h2 toc-link" data-title="Mandatory attributes and options">Mandatory attributes and options</a>
+                  </li>
+                  <li>
+                    <a href="#optional-attributes-and-options" class="toc-h2 toc-link" data-title="Optional attributes and options">Optional attributes and options</a>
                   </li>
               </ul>
           </li>
@@ -569,128 +572,278 @@ Development of the specification is under the umbrella of the Linux Foundation. 
 <p>A <code>ProductReference</code> should include enough information for discovery, ownership, lifecycle visibility, and system integration. The complete product details remain in the source model referenced by <code>uri</code>, <code>identifier</code>, or another system-specific reference.</p>
 
 <p>By separating the catalog reference from the source product definition, ODPC supports mixed data product environments where products may be described using different standards, platforms, and internal models.</p>
-<h2 id='attributes-and-options'>Attributes and options</h2>
+<h2 id='mandatory-attributes-and-options'>Mandatory attributes and options</h2>
 <blockquote>
-<p>Example of ProductReference object usage:</p>
+<p>Example of productReference object usage:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight yaml"><code><span class="na">productReference</span><span class="pi">:</span>
   <span class="na">id</span><span class="pi">:</span> <span class="s">DP-001</span>
+  <span class="na">productID</span><span class="pi">:</span> <span class="s">urbanpulse-events</span>
+  <span class="na">productVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0.0"</span>
   <span class="na">name</span><span class="pi">:</span>
     <span class="na">en</span><span class="pi">:</span> <span class="s">UrbanPulse Events Data Product</span>
   <span class="na">description</span><span class="pi">:</span>
     <span class="na">en</span><span class="pi">:</span> <span class="s">Data product providing event information for urban analytics and citizen services.</span>
-  <span class="na">domain</span><span class="pi">:</span> <span class="s">smart-city</span>
-  <span class="na">owner</span><span class="pi">:</span>
-    <span class="na">organization</span><span class="pi">:</span> <span class="s">Example Organization</span>
-    <span class="na">role</span><span class="pi">:</span> <span class="s">Data Product Owner</span>
   <span class="na">productModel</span><span class="pi">:</span>
     <span class="na">standard</span><span class="pi">:</span> <span class="s">ODPS</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="m">4.1</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">4.1"</span>
     <span class="na">format</span><span class="pi">:</span> <span class="s">yaml</span>
-  <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/products/urbanpulse-events/odps.yaml</span>
-  <span class="na">status</span><span class="pi">:</span> <span class="s">active</span>
-  <span class="na">tags</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="s">events</span>
-    <span class="pi">-</span> <span class="s">smart-city</span>
-    <span class="pi">-</span> <span class="s">mobility</span>
+    <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/products/urbanpulse-events/odps.yaml</span>
 </code></pre></div>
 <table><thead>
 <tr>
-<th>Element</th>
+<th>Attribute</th>
 <th>Type</th>
 <th>Options</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><strong>productReference</strong></td>
+<td><code>productReference</code></td>
 <td>object</td>
 <td>required</td>
-<td>Top-level object that references a data product from an ODPC catalog.</td>
+<td>Top-level object that defines a lightweight catalog reference to a data product.</td>
 </tr>
 <tr>
-<td><strong>id</strong></td>
+<td><code>id</code></td>
 <td>string</td>
 <td>required</td>
-<td>Stable catalog-level identifier for the referenced data product.</td>
+<td>Stable identifier for the product reference inside ODPC.</td>
 </tr>
 <tr>
-<td><strong>name</strong></td>
+<td><code>productID</code></td>
+<td>string</td>
+<td>required</td>
+<td>Product identifier aligned with the referenced data product.</td>
+</tr>
+<tr>
+<td><code>productVersion</code></td>
+<td>string</td>
+<td>required</td>
+<td>Version of the data product shown in the catalog.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
 <td>object</td>
-<td>language-tagged strings</td>
-<td>Human-readable product name used in catalog views and portfolio analysis.</td>
+<td>required, language-tagged strings</td>
+<td>Human-readable product name.</td>
 </tr>
 <tr>
-<td><strong>description</strong></td>
+<td><code>name.en</code></td>
+<td>string</td>
+<td>required</td>
+<td>English product name.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
 <td>object</td>
-<td>language-tagged strings</td>
-<td>Short summary of the referenced data product.</td>
+<td>required, language-tagged strings</td>
+<td>Short product description used for catalog display and discovery.</td>
 </tr>
 <tr>
-<td><strong>domain</strong></td>
+<td><code>description.en</code></td>
+<td>string</td>
+<td>required</td>
+<td>English product description.</td>
+</tr>
+<tr>
+<td><code>productModel</code></td>
+<td>object</td>
+<td>required</td>
+<td>Defines the authoritative product model or specification the catalog reference points to.</td>
+</tr>
+<tr>
+<td><code>productModel.standard</code></td>
+<td>string</td>
+<td>required</td>
+<td>Product model or standard used by the referenced product, such as <code>ODPS</code>, <code>DPDS</code>, or <code>internal</code>.</td>
+</tr>
+<tr>
+<td><code>productModel.version</code></td>
+<td>string</td>
+<td>required</td>
+<td>Version of the referenced product model or standard, such as ODPS <code>4.1</code>.</td>
+</tr>
+<tr>
+<td><code>productModel.format</code></td>
+<td>string</td>
+<td>required</td>
+<td>Format of the referenced product model, such as <code>yaml</code>, <code>json</code>, or <code>html</code>.</td>
+</tr>
+<tr>
+<td><code>productModel.uri</code></td>
+<td>string</td>
+<td>required</td>
+<td>URI pointing to the authoritative product definition.</td>
+</tr>
+</tbody></table>
+<h2 id='optional-attributes-and-options'>Optional attributes and options</h2>
+<blockquote>
+<p>Example of productReference object usage:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight yaml"><code><span class="na">productReference</span><span class="pi">:</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">DP-001</span>
+  <span class="na">productID</span><span class="pi">:</span> <span class="s">urbanpulse-events</span>
+  <span class="na">productVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0.0"</span>
+
+  <span class="na">name</span><span class="pi">:</span>
+    <span class="na">en</span><span class="pi">:</span> <span class="s">UrbanPulse Events Data Product</span>
+
+  <span class="na">description</span><span class="pi">:</span>
+    <span class="na">en</span><span class="pi">:</span> <span class="s">Data product providing event information for urban analytics and citizen services.</span>
+
+  <span class="na">valueProposition</span><span class="pi">:</span>
+    <span class="na">en</span><span class="pi">:</span> <span class="s">Supports event-based mobility planning, citizen services, and urban operations.</span>
+
+  <span class="na">visibility</span><span class="pi">:</span> <span class="s">public</span>
+  <span class="na">status</span><span class="pi">:</span> <span class="s">production</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">dataset</span>
+
+  <span class="na">domains</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">smart-city</span>
+    <span class="pi">-</span> <span class="s">mobility</span>
+
+  <span class="na">categories</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">urban analytics</span>
+    <span class="pi">-</span> <span class="s">citizen services</span>
+
+  <span class="na">standards</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">ODPS</span>
+
+  <span class="na">tags</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">events</span>
+    <span class="pi">-</span> <span class="s">smart-city</span>
+    <span class="pi">-</span> <span class="s">mobility</span>
+
+  <span class="na">portfolioPriority</span><span class="pi">:</span> <span class="s">high</span>
+  <span class="na">governanceProfile</span><span class="pi">:</span> <span class="s">structured</span>
+
+  <span class="na">owner</span><span class="pi">:</span>
+    <span class="na">organization</span><span class="pi">:</span> <span class="s">Example Organization</span>
+    <span class="na">team</span><span class="pi">:</span> <span class="s">Urban Analytics</span>
+    <span class="na">role</span><span class="pi">:</span> <span class="s">Data Product Owner</span>
+
+  <span class="na">productModel</span><span class="pi">:</span>
+    <span class="na">standard</span><span class="pi">:</span> <span class="s">ODPS</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">4.1"</span>
+    <span class="na">format</span><span class="pi">:</span> <span class="s">yaml</span>
+    <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/products/urbanpulse-events/odps.yaml</span>
+
+  <span class="na">logoURL</span><span class="pi">:</span> <span class="s">https://example.org/assets/urbanpulse-logo.png</span>
+
+  <span class="na">outputFileFormats</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">JSON</span>
+    <span class="pi">-</span> <span class="s">CSV</span>
+</code></pre></div>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Options</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>valueProposition</code></td>
+<td>object</td>
+<td>optional, language-tagged strings</td>
+<td>Short explanation of the value the product provides.</td>
+</tr>
+<tr>
+<td><code>valueProposition.en</code></td>
 <td>string</td>
 <td>optional</td>
-<td>Business, policy, or operational domain of the product.</td>
+<td>English value proposition.</td>
 </tr>
 <tr>
-<td><strong>owner</strong></td>
-<td>object</td>
-<td>optional</td>
-<td>Ownership information for the referenced product.</td>
-</tr>
-<tr>
-<td><strong>organization</strong></td>
+<td><code>visibility</code></td>
 <td>string</td>
 <td>optional</td>
-<td>Organization responsible for the data product.</td>
+<td>Product visibility, such as <code>public</code>, <code>internal</code>, <code>restricted</code>, or <code>private</code>.</td>
 </tr>
 <tr>
-<td><strong>role</strong></td>
+<td><code>status</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Lifecycle status of the product, such as <code>draft</code>, <code>active</code>, <code>production</code>, <code>deprecated</code>, or <code>retired</code>.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Type of data product. One of: <code>raw data</code>, <code>derived data</code>, <code>dataset</code>, <code>reports</code>, <code>analytic view</code>, <code>3D visualisation</code>, <code>algorithm</code>, <code>decision support</code>, <code>automated decision-making</code>, <code>data-enhanced product</code>, <code>data-driven service</code>, <code>data-enabled performance</code>, or <code>bi-directional</code>.</td>
+</tr>
+<tr>
+<td><code>domains</code></td>
+<td>array of strings</td>
+<td>optional</td>
+<td>Business, operational, policy, or industry domains related to the product.</td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>array of strings</td>
+<td>optional</td>
+<td>Catalog categories used for grouping and browsing.</td>
+</tr>
+<tr>
+<td><code>standards</code></td>
+<td>array of strings</td>
+<td>optional</td>
+<td>Standards or specifications associated with the product, such as <code>ODPS</code>, <code>DCAT</code>, or <code>OpenAPI</code>.</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>array of strings</td>
+<td>optional</td>
+<td>Keywords used to classify, search, or filter the product reference.</td>
+</tr>
+<tr>
+<td><code>portfolioPriority</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Relative portfolio importance, such as <code>low</code>, <code>medium</code>, <code>high</code>, or <code>critical</code>.</td>
+</tr>
+<tr>
+<td><code>governanceProfile</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Governance posture or profile used to classify the product in the catalog.</td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td>object</td>
+<td>optional</td>
+<td>Ownership information for the product.</td>
+</tr>
+<tr>
+<td><code>owner.organization</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Organization responsible for the product.</td>
+</tr>
+<tr>
+<td><code>owner.team</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Team responsible for the product.</td>
+</tr>
+<tr>
+<td><code>owner.role</code></td>
 <td>string</td>
 <td>optional</td>
 <td>Responsible role, such as Data Product Owner or Product Manager.</td>
 </tr>
 <tr>
-<td><strong>productModel</strong></td>
-<td>object</td>
-<td>required</td>
-<td>Describes the source product definition model.</td>
-</tr>
-<tr>
-<td><strong>standard</strong></td>
-<td>string</td>
-<td>e.g., <code>ODPS</code>, <code>DPDS</code>, <code>internal</code>, <code>vendor</code>, <code>marketplace</code></td>
-<td>Standard or model used by the source product definition.</td>
-</tr>
-<tr>
-<td><strong>version</strong></td>
+<td><code>logoURL</code></td>
 <td>string</td>
 <td>optional</td>
-<td>Version of the source product model.</td>
+<td>URL to a logo or visual asset used in catalog display.</td>
 </tr>
 <tr>
-<td><strong>format</strong></td>
-<td>string</td>
-<td>e.g., <code>yaml</code>, <code>json</code>, <code>api</code>, <code>html</code></td>
-<td>Format of the source product definition.</td>
-</tr>
-<tr>
-<td><strong>uri</strong></td>
-<td>string</td>
-<td>URI</td>
-<td>Link to the source product definition, product page, API endpoint, or repository location.</td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td>string</td>
-<td>e.g., <code>planned</code>, <code>active</code>, <code>deprecated</code>, <code>retired</code></td>
-<td>Lifecycle status of the referenced product in the catalog.</td>
-</tr>
-<tr>
-<td><strong>tags</strong></td>
+<td><code>outputFileFormats</code></td>
 <td>array of strings</td>
 <td>optional</td>
-<td>Keywords used for filtering, search, grouping, and AI-assisted portfolio analysis.</td>
+<td>Output formats available from the product, such as <code>CSV</code>, <code>JSON</code>, <code>Parquet</code>, or <code>GeoJSON</code>.</td>
 </tr>
 </tbody></table>
 <h1 id='usecase'>UseCase</h1>
@@ -707,7 +860,7 @@ Development of the specification is under the umbrella of the Linux Foundation. 
 <p>By defining use cases as reusable catalog objects, ODPC enables discovery, prioritization, gap analysis, reuse analysis, and AI-assisted planning across data product portfolios.</p>
 <h2 id='mandatory-attributes-and-options'>Mandatory attributes and options</h2>
 <blockquote>
-<p>Example of BusinessObjective object usage:</p>
+<p>Example of useCase object usage:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight yaml"><code><span class="na">useCase</span><span class="pi">:</span>
   <span class="na">id</span><span class="pi">:</span> <span class="s">UC-001</span>
@@ -764,7 +917,7 @@ Development of the specification is under the umbrella of the Linux Foundation. 
 </tbody></table>
 <h2 id='optional-attributes-and-options'>Optional attributes and options</h2>
 <blockquote>
-<p>Example of BusinessObjective object usage:</p>
+<p>Example of useCase object usage:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight yaml"><code><span class="na">useCase</span><span class="pi">:</span>
   <span class="na">id</span><span class="pi">:</span> <span class="s">UC-001</span>
