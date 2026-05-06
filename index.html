@@ -523,6 +523,23 @@ Development of the specification is under the umbrella of the Linux Foundation. 
 
 <p>This keeps each specification focused. ODPC should not redefine the full structure of a data product. That belongs to ODPS or to another source product model. ODPC should also not define graph traversal, graph analytics, or relationship semantics. Those belong to ODPG.</p>
 <h2 id='main-odpc-objects'>Main ODPC objects</h2>
+<blockquote>
+<p>Example of ProductReference:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight yaml"><code><span class="na">productReference</span><span class="pi">:</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">DP-001</span>
+  <span class="na">productID</span><span class="pi">:</span> <span class="s">urbanpulse-events</span>
+  <span class="na">productVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0.0"</span>
+  <span class="na">name</span><span class="pi">:</span>
+    <span class="na">en</span><span class="pi">:</span> <span class="s">UrbanPulse Events Data Product</span>
+  <span class="na">description</span><span class="pi">:</span>
+    <span class="na">en</span><span class="pi">:</span> <span class="s">Data product providing event information for urban analytics and citizen services.</span>
+  <span class="na">productModel</span><span class="pi">:</span>
+    <span class="na">standard</span><span class="pi">:</span> <span class="s">ODPS</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">4.1"</span>
+    <span class="na">format</span><span class="pi">:</span> <span class="s">yaml</span>
+    <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/products/urbanpulse-events/odps.yaml</span>
+</code></pre></div>
 <p>The first version of ODPC focuses on these objects:</p>
 
 <ul>
@@ -540,31 +557,7 @@ Development of the specification is under the umbrella of the Linux Foundation. 
 <p>ProductReference is the bridge between ODPC and the actual source product definition.</p>
 
 <p>It can point to an ODPS file, a DPDS descriptor, an internal product model, a vendor catalog asset, or another metadata source.</p>
-
-<blockquote>
-<p>Example of ProductReference:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight yaml"><code><span class="na">productReference</span><span class="pi">:</span>
-  <span class="na">id</span><span class="pi">:</span> <span class="s">DP-001</span>
-  <span class="na">name</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">UrbanPulse Events Data Product</span>
-  <span class="na">description</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">Data product providing event information for urban analytics and citizen services.</span>
-  <span class="na">domain</span><span class="pi">:</span> <span class="s">smart-city</span>
-  <span class="na">owner</span><span class="pi">:</span>
-    <span class="na">organization</span><span class="pi">:</span> <span class="s">Example Organization</span>
-    <span class="na">role</span><span class="pi">:</span> <span class="s">Data Product Owner</span>
-  <span class="na">productModel</span><span class="pi">:</span>
-    <span class="na">standard</span><span class="pi">:</span> <span class="s">ODPS</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="m">4.1</span>
-    <span class="na">format</span><span class="pi">:</span> <span class="s">yaml</span>
-  <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/products/urbanpulse-events/odps.yaml</span>
-  <span class="na">status</span><span class="pi">:</span> <span class="s">active</span>
-  <span class="na">tags</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="s">events</span>
-    <span class="pi">-</span> <span class="s">smart-city</span>
-    <span class="pi">-</span> <span class="s">mobility</span>
-</code></pre></div><h1 id='productreference'>ProductReference</h1>
+<h1 id='productreference'>ProductReference</h1>
 <p>The <code>ProductReference</code> object defines a lightweight catalog reference to a data product. It identifies the product, provides the key information needed for catalog discovery, and points to the authoritative product definition through <code>productModel</code>.</p>
 
 <p>In ODPC, a <code>ProductReference</code> is used to list, search, filter, and display data products as part of a portfolio. It should include enough information for users and tools to understand what the product is, who owns it, what domain it belongs to, what type of product it is, and where the full product definition is located.</p>
