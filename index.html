@@ -539,21 +539,16 @@ connotations to open data are not intentional, intended, or desirable.</p>
 ODPC should also not define graph traversal, graph analytics, or relationship semantics. Those belong to <a href="https://opendataproducts.org/odpg-v1.0/">Open Data Product Graphs, ODPG</a>.</p>
 <h2 id='main-odpc-objects'>Main ODPC objects</h2>
 <blockquote>
-<p>Example of ProductReference:</p>
+<p>Example of catalog use:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight yaml"><code><span class="na">productReference</span><span class="pi">:</span>
-  <span class="na">id</span><span class="pi">:</span> <span class="s">DP-001</span>
-  <span class="na">productID</span><span class="pi">:</span> <span class="s">urbanpulse-events</span>
-  <span class="na">productVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0.0"</span>
+<div class="highlight"><pre class="highlight yaml"><code><span class="na">schema</span><span class="pi">:</span> <span class="s">https://opendataproducts.org/odpc-v1.0/schema/catalog.yaml</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
+<span class="na">catalog</span><span class="pi">:</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">CAT-001</span>
   <span class="na">name</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">UrbanPulse Events Data Product</span>
+    <span class="na">en</span><span class="pi">:</span> <span class="s">Urban Mobility Data Product Catalog</span>
   <span class="na">description</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">Data product providing event information for urban analytics and citizen services.</span>
-  <span class="na">productModel</span><span class="pi">:</span>
-    <span class="na">standard</span><span class="pi">:</span> <span class="s">ODPS</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">4.1"</span>
-    <span class="na">format</span><span class="pi">:</span> <span class="s">yaml</span>
-    <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/products/urbanpulse-events/odps.yaml</span>
+    <span class="na">en</span><span class="pi">:</span> <span class="s">Catalog of data products, use cases, objectives, and signals related to urban mobility.</span>
 </code></pre></div>
 <p>The first version of ODPC focuses on these objects:</p>
 
