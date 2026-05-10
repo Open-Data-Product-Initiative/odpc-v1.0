@@ -1,4 +1,4 @@
-# Signal
+# ODPC Signal
 
 The `Signal` object describes an observed market, operational, user, technology, policy, competitive, quality, usage, risk, or gap indicator that may create demand for new use cases, new data products, or product improvements.
 

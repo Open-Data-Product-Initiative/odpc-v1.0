@@ -1,4 +1,4 @@
-# UseCase
+# ODPC UseCase
 
 The `UseCase` object describes a business, operational, analytical, or policy use case that needs data products. It captures why data is needed, who needs it, what decision or process it supports, and what outcome is expected.
 

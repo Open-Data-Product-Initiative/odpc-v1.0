@@ -1,4 +1,4 @@
-# BusinessObjective
+# ODPC BusinessObjective
 
 The `BusinessObjective` object defines a higher-level business, operational, policy, or strategic objective that data products and use cases contribute to. It captures the outcome the organization wants to achieve and provides the portfolio-level anchor for value management.
 

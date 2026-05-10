@@ -1,4 +1,4 @@
-# Catalog
+# ODPC Catalog
 
 The `Catalog` object defines a reusable ODPC catalog. It provides the top-level structure for organizing product references, use cases, business objectives, signals, tags, ownership, scope, lifecycle status, and graph implementation.
 
