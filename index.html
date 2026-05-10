@@ -369,24 +369,7 @@
               </ul>
           </li>
           <li>
-            <a href="#ai-agent-usage-guide" class="toc-h1 toc-link" data-title="AI Agent Usage Guide">AI Agent Usage Guide</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#agent-resource-order" class="toc-h2 toc-link" data-title="Agent resource order">Agent resource order</a>
-                  </li>
-                  <li>
-                    <a href="#common-agent-tasks" class="toc-h2 toc-link" data-title="Common agent tasks">Common agent tasks</a>
-                  </li>
-                  <li>
-                    <a href="#object-choice-rules" class="toc-h2 toc-link" data-title="Object choice rules">Object choice rules</a>
-                  </li>
-                  <li>
-                    <a href="#generation-rules" class="toc-h2 toc-link" data-title="Generation rules">Generation rules</a>
-                  </li>
-                  <li>
-                    <a href="#validation-and-repair-workflow" class="toc-h2 toc-link" data-title="Validation and repair workflow">Validation and repair workflow</a>
-                  </li>
-              </ul>
+            <a href="#catalog-toolkit-for-tools-and-ai-agents" class="toc-h1 toc-link" data-title="Catalog Toolkit for Tools and AI Agents">Catalog Toolkit for Tools and AI Agents</a>
           </li>
           <li>
             <a href="#odpc-catalog" class="toc-h1 toc-link" data-title="ODPC Catalog">ODPC Catalog</a>
@@ -606,150 +589,126 @@ ODPC should also not define graph traversal, graph analytics, or relationship se
 </ul>
 
 <p>These objects are designed to be reusable across catalogs, tools, AI workflows, and graph models.</p>
-<h1 id='ai-agent-usage-guide'>AI Agent Usage Guide</h1>
-<p>ODPC is designed to be usable by AI agents that generate, review, enrich, validate, or connect data product catalog information. Agents should treat ODPC as the catalog and portfolio layer of the OpenDataProducts.org standards family.</p>
-<h2 id='agent-resource-order'>Agent resource order</h2>
-<p>Agents SHOULD use ODPC resources in this order:</p>
-
-<ol>
-<li>Fetch <code>/llms.txt</code> to understand the available resources and standards-family boundaries.</li>
-<li>Use <code>/catalog/objects.jsonl</code> for lightweight object selection, retrieval, and classification.</li>
-<li>Use <code>/catalog/examples/*.yaml</code> when generating new ODPC catalog content.</li>
-<li>Use <code>/schema/odpc.yaml</code> or <code>/schema/odpc.json</code> to validate catalog files.</li>
-<li>Use the human-readable specification when object definitions, examples, and attribute explanations are needed.</li>
-</ol>
-
-<p>When working from the source repository, agents MAY use the helper scripts in <code>scripts/</code>:</p>
-<div class="highlight"><pre class="highlight shell"><code>python3 scripts/check_agent_artifacts.py
-python3 scripts/search_objects.py demand <span class="nt">--json</span>
-python3 scripts/search_objects.py <span class="nt">--id</span> ProductReference
-python3 scripts/validate_catalog.py <span class="nb">source</span>/catalog/examples/minimal.yaml
+<h1 id='catalog-toolkit-for-tools-and-ai-agents'>Catalog Toolkit for Tools and AI Agents</h1>
+<blockquote>
+<p>Snippet of YAML version:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight yaml"><code><span class="na">schema</span><span class="pi">:</span> <span class="s">https://opendataproducts.org/odpc-v1.0/schema/odpc.yaml</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
+<span class="na">catalog</span><span class="pi">:</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">CAT-001</span>
+  <span class="na">name</span><span class="pi">:</span>
+    <span class="na">en</span><span class="pi">:</span> <span class="s">Urban Mobility Data Product Catalog</span>
+  <span class="na">description</span><span class="pi">:</span>
+    <span class="na">en</span><span class="pi">:</span> <span class="s">Catalog of data products, use cases, objectives, and signals related to urban mobility.</span>
+  <span class="na">graph</span><span class="pi">:</span>
+    <span class="na">standard</span><span class="pi">:</span> <span class="s">ODPG</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
+    <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/graphs/urban-mobility.graph.yaml</span>
 </code></pre></div>
-<p>The validation script requires the packages listed in <code>scripts/requirements-agent.txt</code>.</p>
-<h2 id='common-agent-tasks'>Common agent tasks</h2>
-<table><thead>
-<tr>
-<th>Task</th>
-<th>Recommended ODPC resource</th>
-<th>Notes</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Generate a new catalog</td>
-<td><code>/catalog/examples/minimal.yaml</code>, <code>/catalog/examples/full.yaml</code>, <code>/schema/odpc.yaml</code></td>
-<td>Start with the minimal catalog, then add reusable objects only when needed.</td>
-</tr>
-<tr>
-<td>Convert product metadata into catalog form</td>
-<td><code>/catalog/examples/product-reference.yaml</code></td>
-<td>Use <code>ProductReference</code> and point <code>productModel.uri</code> to the authoritative product definition.</td>
-</tr>
-<tr>
-<td>Classify demand or business need text</td>
-<td><code>/catalog/objects.jsonl</code>, <code>/catalog/examples/use-case.yaml</code></td>
-<td>Use <code>UseCase</code> for demand-side needs and expected outcomes.</td>
-</tr>
-<tr>
-<td>Classify strategic or operational outcomes</td>
-<td><code>/catalog/objects.jsonl</code>, <code>/catalog/examples/business-objective-with-kpis.yaml</code></td>
-<td>Use <code>BusinessObjective</code>; nest KPIs inside <code>businessObjective.kpis</code>.</td>
-</tr>
-<tr>
-<td>Capture evidence, risk, demand, or opportunity</td>
-<td><code>/catalog/examples/signal.yaml</code></td>
-<td>Use <code>Signal</code>; do not model relationships directly in the signal.</td>
-</tr>
-<tr>
-<td>Build graph relationships between objects</td>
-<td>ODPG resources</td>
-<td>ODPC defines reusable objects. ODPG defines relationships, nodes, and edges.</td>
-</tr>
-<tr>
-<td>Select stable terms or relationship names</td>
-<td>ODPV resources</td>
-<td>ODPV provides controlled vocabulary terms and relationship names.</td>
-</tr>
-</tbody></table>
-<h2 id='object-choice-rules'>Object choice rules</h2>
-<p>Agents SHOULD select the most specific ODPC object that matches the user&#39;s intent.</p>
+<p>ODPC is published in several forms for different users and tools. This specification provides the human-readable documentation, while the schema, catalog object records, and example files provide machine-readable resources for validation, catalog integration, AI retrieval, and automation. Use <code>odpc.yaml</code> or <code>odpc.json</code> to validate catalog files, <code>objects.jsonl</code> for lightweight object selection and retrieval, and the catalog examples when generating or repairing ODPC YAML.</p>
+
+<!-- AI_AGENT_GUIDANCE:
+Use /schema/odpc.yaml or /schema/odpc.json to validate ODPC catalog files.
+Use /catalog/objects.jsonl for retrieval, classification, object selection, and lightweight tool calls.
+Use /catalog/examples/*.yaml when generating or repairing ODPC catalog content.
+Use ProductReference for lightweight references to data products; do not copy full ODPS product metadata into ODPC.
+Use BusinessObjective.kpis for KPIs; do not create top-level KPI objects.
+Use ODPG, not ODPC, for graph relationships, nodes, edges, traversal, and relationship semantics.
+Use ODPV when stable vocabulary terms or relationship names are needed.
+-->
 
 <table><thead>
 <tr>
-<th>User intent</th>
-<th>Use</th>
-<th>Avoid</th>
+<th>Resource</th>
+<th>Format</th>
+<th>Purpose</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>&quot;Create a catalog for these products and use cases&quot;</td>
-<td><code>Catalog</code></td>
-<td>A full ODPS product document</td>
+<td><a href="llms.txt"><code>llms.txt</code></a></td>
+<td>Text</td>
+<td>AI agent guidance for discovering and using ODPC resources</td>
 </tr>
 <tr>
-<td>&quot;Add this product to a portfolio&quot;</td>
-<td><code>ProductReference</code></td>
-<td>Copying all product metadata into ODPC</td>
+<td><a href="schema/odpc.yaml"><code>odpc.yaml</code></a></td>
+<td>YAML Schema</td>
+<td>YAML representation of the ODPC validation schema</td>
 </tr>
 <tr>
-<td>&quot;Describe why the business needs data&quot;</td>
-<td><code>UseCase</code></td>
-<td><code>BusinessObjective</code> unless a strategic outcome is being defined</td>
+<td><a href="schema/odpc.json"><code>odpc.json</code></a></td>
+<td>JSON Schema</td>
+<td>JSON representation of the ODPC validation schema</td>
 </tr>
 <tr>
-<td>&quot;Define the outcome we want to improve&quot;</td>
-<td><code>BusinessObjective</code></td>
-<td><code>UseCase</code> unless describing a concrete demand scenario</td>
+<td><a href="catalog/objects.jsonl"><code>objects.jsonl</code></a></td>
+<td>JSONL</td>
+<td>Agent-friendly one-object-per-line file for retrieval, classification, and lightweight tools</td>
 </tr>
 <tr>
-<td>&quot;Measure the objective&quot;</td>
-<td><code>BusinessObjective.kpis</code></td>
-<td>A top-level <code>KPI</code> object</td>
+<td><a href="catalog/examples/minimal.yaml"><code>minimal.yaml</code></a></td>
+<td>YAML</td>
+<td>Minimal valid ODPC catalog example</td>
 </tr>
 <tr>
-<td>&quot;Record evidence of demand, risk, or opportunity&quot;</td>
-<td><code>Signal</code></td>
-<td><code>KPI</code> or <code>BusinessObjective</code></td>
+<td><a href="catalog/examples/full.yaml"><code>full.yaml</code></a></td>
+<td>YAML</td>
+<td>Full catalog example with product references, use cases, business objectives, KPIs, and signals</td>
 </tr>
 <tr>
-<td>&quot;Connect product A to use case B&quot;</td>
-<td>ODPG relationship</td>
-<td>ODPC object fields</td>
+<td><a href="catalog/examples/product-reference.yaml"><code>product-reference.yaml</code></a></td>
+<td>YAML</td>
+<td>Standalone ProductReference example</td>
+</tr>
+<tr>
+<td><a href="catalog/examples/use-case.yaml"><code>use-case.yaml</code></a></td>
+<td>YAML</td>
+<td>Standalone UseCase example</td>
+</tr>
+<tr>
+<td><a href="catalog/examples/business-objective-with-kpis.yaml"><code>business-objective-with-kpis.yaml</code></a></td>
+<td>YAML</td>
+<td>Standalone BusinessObjective example with nested KPIs</td>
+</tr>
+<tr>
+<td><a href="catalog/examples/signal.yaml"><code>signal.yaml</code></a></td>
+<td>YAML</td>
+<td>Standalone Signal example</td>
 </tr>
 </tbody></table>
-<h2 id='generation-rules'>Generation rules</h2>
-<p>When generating ODPC YAML, agents SHOULD:</p>
 
-<ul>
-<li>include <code>schema</code>, <code>version</code>, and <code>catalog</code> at the document root</li>
-<li>use <code>version: &quot;1.0&quot;</code></li>
-<li>use stable identifiers such as <code>CAT-001</code>, <code>DP-001</code>, <code>UC-001</code>, <code>BO-001</code>, <code>KPI-001</code>, and <code>SIG-001</code></li>
-<li>use language-tagged strings such as <code>name.en</code> and <code>description.en</code></li>
-<li>keep <code>ProductReference</code> lightweight and point to the authoritative product model with <code>productModel</code></li>
-<li>nest KPIs inside <code>BusinessObjective</code></li>
-<li>use <code>Signal</code> for observed evidence and recommended action</li>
-<li>use <code>x-</code> prefixed fields for local extensions</li>
-<li>validate the result with the ODPC schema</li>
-</ul>
+<p>Agent-oriented helper scripts are available in the source repository for maintaining and using the catalog artifacts.</p>
 
-<p>Agents SHOULD NOT:</p>
+<!-- AI_AGENT_SCRIPT_GUIDANCE:
+When working from the source repository, use scripts/search_objects.py for repeatable local ODPC object lookup.
+Use scripts/search_objects.py --json when another tool or agent will consume the result.
+Use scripts/validate_catalog.py to validate ODPC YAML or JSON catalog files against source/schema/odpc.yaml.
+Use scripts/check_agent_artifacts.py in CI or review workflows to detect drift between schema, catalog artifacts, examples, and llms.txt.
+Install script dependencies with python3 -m pip install -r scripts/requirements-agent.txt.
+Do not edit generated or derived artifacts without checking alignment across llms.txt, schema files, catalog artifacts, examples, and tests.
+-->
 
-<ul>
-<li>redefine ODPC object meanings</li>
-<li>use ODPC to describe full data product metadata that belongs in ODPS</li>
-<li>put graph edges, relationship semantics, or traversal rules inside ODPC objects</li>
-<li>invent top-level objects when an extension field or another standard is the correct place</li>
-</ul>
-<h2 id='validation-and-repair-workflow'>Validation and repair workflow</h2>
-<p>When repairing ODPC YAML, agents SHOULD:</p>
+<table><thead>
+<tr>
+<th>Script</th>
+<th>Purpose</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="https://github.com/Open-Data-Product-Initiative/odpc-v1.0/blob/main/scripts/check_agent_artifacts.py"><code>check_agent_artifacts.py</code></a></td>
+<td>Checks schema alignment, example files, object JSONL records, and <code>llms.txt</code> references</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Open-Data-Product-Initiative/odpc-v1.0/blob/main/scripts/search_objects.py"><code>search_objects.py</code></a></td>
+<td>Searches ODPC object records by keyword or exact object id; use <code>--json</code> for machine-readable results</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Open-Data-Product-Initiative/odpc-v1.0/blob/main/scripts/validate_catalog.py"><code>validate_catalog.py</code></a></td>
+<td>Validates ODPC YAML or JSON catalog files against the ODPC schema</td>
+</tr>
+</tbody></table>
 
-<ol>
-<li>Validate the file against <code>/schema/odpc.yaml</code> or <code>/schema/odpc.json</code>.</li>
-<li>Check that required fields are present for <code>Catalog</code>, <code>ProductReference</code>, <code>UseCase</code>, <code>BusinessObjective</code>, and <code>Signal</code>.</li>
-<li>Check that all human-readable names and descriptions use language-tagged strings.</li>
-<li>Move full product metadata from <code>ProductReference</code> into the referenced product model when possible.</li>
-<li>Move relationships into an ODPG graph file when possible.</li>
-<li>Keep local additions under <code>x-</code> extension fields.</li>
-</ol>
+<p>The Markdown tables in this specification are intended for human readers. The schema, JSONL, and YAML example files are intended for programmable use, automation, validation, AI retrieval, and catalog tooling.</p>
 <h1 id='odpc-catalog'>ODPC Catalog</h1>
 <p>The <code>Catalog</code> object defines a reusable ODPC catalog. It provides the top-level structure for organizing product references, use cases, business objectives, signals, tags, ownership, scope, lifecycle status, and graph implementation.</p>
 
