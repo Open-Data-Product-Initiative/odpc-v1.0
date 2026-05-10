@@ -1,6 +1,6 @@
 # Terms used
 
-ODPC uses the [Open Data Product Vocabulary, ODPV](https://opendataproducts.org/odpv-v1.0/), as the shared vocabulary for the OpenDataProducts.org standards family. Use ODPV for common terms, stable ids, labels, definitions, aliases, and relationship names across ODPS, ODPC, and ODPG.
+ODPC uses the [Open Data Product Vocabulary, ODPV](https://opendataproducts.org/odpv-v1.0/), as the shared vocabulary for the OpenDataProducts.org standards family. Use ODPV for common terms, stable ids, labels, definitions, aliases, and relationship names across ODPS, ODPC, and ODPG. For machine-readable lookup, use the ODPV term records at [ODPV terms.jsonl](https://opendataproducts.org/odpv-v1.0/vocab/terms.jsonl).
 
 The terms below explain ODPC-specific usage where this specification gives a shared vocabulary term a concrete catalog-object shape, field-level meaning, or modeling constraint.
 
@@ -8,17 +8,17 @@ The terms below explain ODPC-specific usage where this specification gives a sha
 
 | Term | ODPV term | ODPC usage |
 |---|---|---|
-| Data product catalog | [`DataProductCatalog`](https://opendataproducts.org/odpv-v1.0/terms/DataProductCatalog) | Implemented in ODPC as the `Catalog` object. |
-| Use case | [`UseCase`](https://opendataproducts.org/odpv-v1.0/terms/UseCase) | Implemented in ODPC as the `UseCase` object. |
-| Business objective | [`BusinessObjective`](https://opendataproducts.org/odpv-v1.0/terms/BusinessObjective) | Implemented in ODPC as the `BusinessObjective` object. |
-| KPI | [`KPI`](https://opendataproducts.org/odpv-v1.0/terms/KPI) | In ODPC, KPIs are nested inside `BusinessObjective.kpis`, not defined as top-level catalog objects. |
-| Signal | [`Signal`](https://opendataproducts.org/odpv-v1.0/terms/Signal) | Implemented in ODPC as the `Signal` object. |
-| Data need | [`DataNeed`](https://opendataproducts.org/odpv-v1.0/terms/DataNeed) | Represented in ODPC through `UseCase.dataNeeds`. |
-| Data product graph | [`DataProductGraph`](https://opendataproducts.org/odpv-v1.0/terms/DataProductGraph) | Referenced from ODPC through `Catalog.graph`; graph structures belong to ODPG or another graph standard. |
-| Identifier | [`Identifier`](https://opendataproducts.org/odpv-v1.0/terms/Identifier) | Used in ODPC object `id` fields. |
-| Reference | [`Reference`](https://opendataproducts.org/odpv-v1.0/terms/Reference) | Used in ODPC for pointers such as `ProductReference.productModel.uri` and `Catalog.graph.uri`. |
-| Owner | [`Owner`](https://opendataproducts.org/odpv-v1.0/terms/Owner) | Used in ODPC `owner` fields for accountable organizations, teams, or roles. |
-| Domain | [`Domain`](https://opendataproducts.org/odpv-v1.0/terms/Domain) | Used in ODPC `domains` and `scope.domains` fields for catalog grouping and filtering. |
+| Data product catalog | `DataProductCatalog` | Implemented in ODPC as the `Catalog` object. |
+| Use case | `UseCase` | Implemented in ODPC as the `UseCase` object. |
+| Business objective | `BusinessObjective` | Implemented in ODPC as the `BusinessObjective` object. |
+| KPI | `KPI` | In ODPC, KPIs are nested inside `BusinessObjective.kpis`, not defined as top-level catalog objects. |
+| Signal | `Signal` | Implemented in ODPC as the `Signal` object. |
+| Data need | `DataNeed` | Represented in ODPC through `UseCase.dataNeeds`. |
+| Data product graph | `DataProductGraph` | Referenced from ODPC through `Catalog.graph`; graph structures belong to ODPG or another graph standard. |
+| Identifier | `Identifier` | Used in ODPC object `id` fields. |
+| Reference | `Reference` | Used in ODPC for pointers such as `ProductReference.productModel.uri` and `Catalog.graph.uri`. |
+| Owner | `Owner` | Used in ODPC `owner` fields for accountable organizations, teams, or roles. |
+| Domain | `Domain` | Used in ODPC `domains` and `scope.domains` fields for catalog grouping and filtering. |
 
 ## ODPC-specific usage notes
 
