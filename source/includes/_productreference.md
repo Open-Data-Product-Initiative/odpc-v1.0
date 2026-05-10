@@ -26,7 +26,8 @@ productReference:
   name:
     en: UrbanPulse Events Data Product
   description:
-    en: Data product providing event information for urban analytics and citizen services.
+    en: Data product providing event information for urban 
+        analytics and citizen services.
   productModel:
     standard: ODPS
     version: "4.1"
@@ -66,10 +67,12 @@ productReference:
     en: UrbanPulse Events Data Product
 
   description:
-    en: Data product providing event information for urban analytics and citizen services.
+    en: Data product providing event information for 
+        urban analytics and citizen services.
 
   valueProposition:
-    en: Supports event-based mobility planning, citizen services, and urban operations.
+    en: Supports event-based mobility planning, 
+        citizen services, and urban operations.
 
   visibility: public
   status: production

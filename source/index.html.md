@@ -133,7 +133,8 @@ catalog:
   name:
     en: Urban Mobility Data Product Catalog
   description:
-    en: Catalog of data products, use cases, objectives, and signals related to urban mobility.
+    en: Catalog of data products, use cases, objectives, 
+        and signals related to urban mobility.
   graph:
     standard: ODPG
     version: "1.0"
