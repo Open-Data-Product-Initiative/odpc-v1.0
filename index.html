@@ -369,6 +369,26 @@
               </ul>
           </li>
           <li>
+            <a href="#ai-agent-usage-guide" class="toc-h1 toc-link" data-title="AI Agent Usage Guide">AI Agent Usage Guide</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#agent-resource-order" class="toc-h2 toc-link" data-title="Agent resource order">Agent resource order</a>
+                  </li>
+                  <li>
+                    <a href="#common-agent-tasks" class="toc-h2 toc-link" data-title="Common agent tasks">Common agent tasks</a>
+                  </li>
+                  <li>
+                    <a href="#object-choice-rules" class="toc-h2 toc-link" data-title="Object choice rules">Object choice rules</a>
+                  </li>
+                  <li>
+                    <a href="#generation-rules" class="toc-h2 toc-link" data-title="Generation rules">Generation rules</a>
+                  </li>
+                  <li>
+                    <a href="#validation-and-repair-workflow" class="toc-h2 toc-link" data-title="Validation and repair workflow">Validation and repair workflow</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#catalog" class="toc-h1 toc-link" data-title="Catalog">Catalog</a>
               <ul class="toc-list-h2">
                   <li>
@@ -586,6 +606,142 @@ ODPC should also not define graph traversal, graph analytics, or relationship se
 </ul>
 
 <p>These objects are designed to be reusable across catalogs, tools, AI workflows, and graph models.</p>
+<h1 id='ai-agent-usage-guide'>AI Agent Usage Guide</h1>
+<p>ODPC is designed to be usable by AI agents that generate, review, enrich, validate, or connect data product catalog information. Agents should treat ODPC as the catalog and portfolio layer of the OpenDataProducts.org standards family.</p>
+<h2 id='agent-resource-order'>Agent resource order</h2>
+<p>Agents SHOULD use ODPC resources in this order:</p>
+
+<ol>
+<li>Fetch <code>/llms.txt</code> to understand the available resources and standards-family boundaries.</li>
+<li>Use <code>/objects/odpc-objects.jsonl</code> for lightweight object selection, retrieval, and classification.</li>
+<li>Use <code>/examples/*.yaml</code> when generating new ODPC catalog content.</li>
+<li>Use <code>/schema/odpc.yaml</code> or <code>/schema/odpc.json</code> to validate catalog files.</li>
+<li>Use the human-readable specification when object definitions, examples, and attribute explanations are needed.</li>
+</ol>
+<h2 id='common-agent-tasks'>Common agent tasks</h2>
+<table><thead>
+<tr>
+<th>Task</th>
+<th>Recommended ODPC resource</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Generate a new catalog</td>
+<td><code>/examples/minimal-catalog.yaml</code>, <code>/examples/full-catalog.yaml</code>, <code>/schema/odpc.yaml</code></td>
+<td>Start with the minimal catalog, then add reusable objects only when needed.</td>
+</tr>
+<tr>
+<td>Convert product metadata into catalog form</td>
+<td><code>/examples/product-reference.yaml</code></td>
+<td>Use <code>ProductReference</code> and point <code>productModel.uri</code> to the authoritative product definition.</td>
+</tr>
+<tr>
+<td>Classify demand or business need text</td>
+<td><code>/objects/odpc-objects.jsonl</code>, <code>/examples/use-case.yaml</code></td>
+<td>Use <code>UseCase</code> for demand-side needs and expected outcomes.</td>
+</tr>
+<tr>
+<td>Classify strategic or operational outcomes</td>
+<td><code>/objects/odpc-objects.jsonl</code>, <code>/examples/business-objective-with-kpis.yaml</code></td>
+<td>Use <code>BusinessObjective</code>; nest KPIs inside <code>businessObjective.kpis</code>.</td>
+</tr>
+<tr>
+<td>Capture evidence, risk, demand, or opportunity</td>
+<td><code>/examples/signal.yaml</code></td>
+<td>Use <code>Signal</code>; do not model relationships directly in the signal.</td>
+</tr>
+<tr>
+<td>Build graph relationships between objects</td>
+<td>ODPG resources</td>
+<td>ODPC defines reusable objects. ODPG defines relationships, nodes, and edges.</td>
+</tr>
+<tr>
+<td>Select stable terms or relationship names</td>
+<td>ODPV resources</td>
+<td>ODPV provides controlled vocabulary terms and relationship names.</td>
+</tr>
+</tbody></table>
+<h2 id='object-choice-rules'>Object choice rules</h2>
+<p>Agents SHOULD select the most specific ODPC object that matches the user&#39;s intent.</p>
+
+<table><thead>
+<tr>
+<th>User intent</th>
+<th>Use</th>
+<th>Avoid</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>&quot;Create a catalog for these products and use cases&quot;</td>
+<td><code>Catalog</code></td>
+<td>A full ODPS product document</td>
+</tr>
+<tr>
+<td>&quot;Add this product to a portfolio&quot;</td>
+<td><code>ProductReference</code></td>
+<td>Copying all product metadata into ODPC</td>
+</tr>
+<tr>
+<td>&quot;Describe why the business needs data&quot;</td>
+<td><code>UseCase</code></td>
+<td><code>BusinessObjective</code> unless a strategic outcome is being defined</td>
+</tr>
+<tr>
+<td>&quot;Define the outcome we want to improve&quot;</td>
+<td><code>BusinessObjective</code></td>
+<td><code>UseCase</code> unless describing a concrete demand scenario</td>
+</tr>
+<tr>
+<td>&quot;Measure the objective&quot;</td>
+<td><code>BusinessObjective.kpis</code></td>
+<td>A top-level <code>KPI</code> object</td>
+</tr>
+<tr>
+<td>&quot;Record evidence of demand, risk, or opportunity&quot;</td>
+<td><code>Signal</code></td>
+<td><code>KPI</code> or <code>BusinessObjective</code></td>
+</tr>
+<tr>
+<td>&quot;Connect product A to use case B&quot;</td>
+<td>ODPG relationship</td>
+<td>ODPC object fields</td>
+</tr>
+</tbody></table>
+<h2 id='generation-rules'>Generation rules</h2>
+<p>When generating ODPC YAML, agents SHOULD:</p>
+
+<ul>
+<li>include <code>schema</code>, <code>version</code>, and <code>catalog</code> at the document root</li>
+<li>use <code>version: &quot;1.0&quot;</code></li>
+<li>use stable identifiers such as <code>CAT-001</code>, <code>DP-001</code>, <code>UC-001</code>, <code>BO-001</code>, <code>KPI-001</code>, and <code>SIG-001</code></li>
+<li>use language-tagged strings such as <code>name.en</code> and <code>description.en</code></li>
+<li>keep <code>ProductReference</code> lightweight and point to the authoritative product model with <code>productModel</code></li>
+<li>nest KPIs inside <code>BusinessObjective</code></li>
+<li>use <code>Signal</code> for observed evidence and recommended action</li>
+<li>use <code>x-</code> prefixed fields for local extensions</li>
+<li>validate the result with the ODPC schema</li>
+</ul>
+
+<p>Agents SHOULD NOT:</p>
+
+<ul>
+<li>redefine ODPC object meanings</li>
+<li>use ODPC to describe full data product metadata that belongs in ODPS</li>
+<li>put graph edges, relationship semantics, or traversal rules inside ODPC objects</li>
+<li>invent top-level objects when an extension field or another standard is the correct place</li>
+</ul>
+<h2 id='validation-and-repair-workflow'>Validation and repair workflow</h2>
+<p>When repairing ODPC YAML, agents SHOULD:</p>
+
+<ol>
+<li>Validate the file against <code>/schema/odpc.yaml</code> or <code>/schema/odpc.json</code>.</li>
+<li>Check that required fields are present for <code>Catalog</code>, <code>ProductReference</code>, <code>UseCase</code>, <code>BusinessObjective</code>, and <code>Signal</code>.</li>
+<li>Check that all human-readable names and descriptions use language-tagged strings.</li>
+<li>Move full product metadata from <code>ProductReference</code> into the referenced product model when possible.</li>
+<li>Move relationships into an ODPG graph file when possible.</li>
+<li>Keep local additions under <code>x-</code> extension fields.</li>
+</ol>
 <h1 id='catalog'>Catalog</h1>
 <p>The <code>Catalog</code> object defines a reusable ODPC catalog. It provides the top-level structure for organizing product references, use cases, business objectives, signals, tags, ownership, scope, lifecycle status, and graph implementation.</p>
 
