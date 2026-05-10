@@ -613,8 +613,8 @@ ODPC should also not define graph traversal, graph analytics, or relationship se
 
 <ol>
 <li>Fetch <code>/llms.txt</code> to understand the available resources and standards-family boundaries.</li>
-<li>Use <code>/objects/odpc-objects.jsonl</code> for lightweight object selection, retrieval, and classification.</li>
-<li>Use <code>/examples/*.yaml</code> when generating new ODPC catalog content.</li>
+<li>Use <code>/catalog/objects.jsonl</code> for lightweight object selection, retrieval, and classification.</li>
+<li>Use <code>/catalog/examples/*.yaml</code> when generating new ODPC catalog content.</li>
 <li>Use <code>/schema/odpc.yaml</code> or <code>/schema/odpc.json</code> to validate catalog files.</li>
 <li>Use the human-readable specification when object definitions, examples, and attribute explanations are needed.</li>
 </ol>
@@ -623,7 +623,7 @@ ODPC should also not define graph traversal, graph analytics, or relationship se
 <div class="highlight"><pre class="highlight shell"><code>python3 scripts/check_agent_artifacts.py
 python3 scripts/search_objects.py demand <span class="nt">--json</span>
 python3 scripts/search_objects.py <span class="nt">--id</span> ProductReference
-python3 scripts/validate_catalog.py <span class="nb">source</span>/examples/minimal-catalog.yaml
+python3 scripts/validate_catalog.py <span class="nb">source</span>/catalog/examples/minimal.yaml
 </code></pre></div>
 <p>The validation script requires the packages listed in <code>scripts/requirements-agent.txt</code>.</p>
 <h2 id='common-agent-tasks'>Common agent tasks</h2>
@@ -636,27 +636,27 @@ python3 scripts/validate_catalog.py <span class="nb">source</span>/examples/mini
 </thead><tbody>
 <tr>
 <td>Generate a new catalog</td>
-<td><code>/examples/minimal-catalog.yaml</code>, <code>/examples/full-catalog.yaml</code>, <code>/schema/odpc.yaml</code></td>
+<td><code>/catalog/examples/minimal.yaml</code>, <code>/catalog/examples/full.yaml</code>, <code>/schema/odpc.yaml</code></td>
 <td>Start with the minimal catalog, then add reusable objects only when needed.</td>
 </tr>
 <tr>
 <td>Convert product metadata into catalog form</td>
-<td><code>/examples/product-reference.yaml</code></td>
+<td><code>/catalog/examples/product-reference.yaml</code></td>
 <td>Use <code>ProductReference</code> and point <code>productModel.uri</code> to the authoritative product definition.</td>
 </tr>
 <tr>
 <td>Classify demand or business need text</td>
-<td><code>/objects/odpc-objects.jsonl</code>, <code>/examples/use-case.yaml</code></td>
+<td><code>/catalog/objects.jsonl</code>, <code>/catalog/examples/use-case.yaml</code></td>
 <td>Use <code>UseCase</code> for demand-side needs and expected outcomes.</td>
 </tr>
 <tr>
 <td>Classify strategic or operational outcomes</td>
-<td><code>/objects/odpc-objects.jsonl</code>, <code>/examples/business-objective-with-kpis.yaml</code></td>
+<td><code>/catalog/objects.jsonl</code>, <code>/catalog/examples/business-objective-with-kpis.yaml</code></td>
 <td>Use <code>BusinessObjective</code>; nest KPIs inside <code>businessObjective.kpis</code>.</td>
 </tr>
 <tr>
 <td>Capture evidence, risk, demand, or opportunity</td>
-<td><code>/examples/signal.yaml</code></td>
+<td><code>/catalog/examples/signal.yaml</code></td>
 <td>Use <code>Signal</code>; do not model relationships directly in the signal.</td>
 </tr>
 <tr>
