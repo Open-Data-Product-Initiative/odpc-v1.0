@@ -7,6 +7,7 @@ Base URL:
 
 Human-readable specification:
 - / (https://opendataproducts.org/odpc-v1.0/)
+- The "AI Agent Usage Guide" section explains how agents should select objects, generate ODPC YAML, validate files, and decide when to use ODPS, ODPG, or ODPV.
 
 Standards-family context:
 - ODPS is the Open Data Product Specification. Use ODPS when describing one data product and its detailed product metadata. Homepage: https://opendataproducts.org/
@@ -18,6 +19,17 @@ Standards-family context:
 Canonical schema files:
 - /schema/odpc.yaml (https://opendataproducts.org/odpc-v1.0/schema/odpc.yaml)
 - /schema/odpc.json (https://opendataproducts.org/odpc-v1.0/schema/odpc.json)
+
+Agent-friendly object file:
+- /objects/odpc-objects.jsonl (https://opendataproducts.org/odpc-v1.0/objects/odpc-objects.jsonl)
+
+Example files:
+- /examples/minimal-catalog.yaml (https://opendataproducts.org/odpc-v1.0/examples/minimal-catalog.yaml)
+- /examples/full-catalog.yaml (https://opendataproducts.org/odpc-v1.0/examples/full-catalog.yaml)
+- /examples/product-reference.yaml (https://opendataproducts.org/odpc-v1.0/examples/product-reference.yaml)
+- /examples/use-case.yaml (https://opendataproducts.org/odpc-v1.0/examples/use-case.yaml)
+- /examples/business-objective-with-kpis.yaml (https://opendataproducts.org/odpc-v1.0/examples/business-objective-with-kpis.yaml)
+- /examples/signal.yaml (https://opendataproducts.org/odpc-v1.0/examples/signal.yaml)
 
 Source repository:
 - https://github.com/Open-Data-Product-Initiative/odpc-v1.0
@@ -33,6 +45,8 @@ Core ODPC objects:
 - Signal: reusable observation or indicator that can inform catalog planning, prioritization, discovery, risk, opportunity, demand, or change.
 
 File selection guidance:
+- Use /objects/odpc-objects.jsonl for retrieval, classification, object selection, and lightweight agent tools. It contains one ODPC concept per line with ids, definitions, required fields, examples, use guidance, and non-use guidance.
+- Use /examples/*.yaml when generating ODPC files or repairing user-provided catalog content.
 - Use /schema/odpc.yaml when YAML schema validation or YAML-native tooling is preferred.
 - Use /schema/odpc.json when JSON schema validation or JSON-native tooling is preferred.
 - Use the human-readable specification when you need object explanations, examples, attribute descriptions, or modeling guidance.
@@ -42,17 +56,19 @@ File selection guidance:
 
 Recommended agent workflow:
 1. Fetch /llms.txt first to understand the standards-family context and available ODPC resources.
-2. Load the human-readable ODPC specification when you need object definitions, examples, or attribute-level guidance.
-3. Use /schema/odpc.yaml or /schema/odpc.json to validate ODPC catalog files.
-4. Use Catalog for portfolio containers and catalog-level metadata.
-5. Use ProductReference for lightweight references to data products; do not copy full ODPS product metadata into ProductReference.
-6. Use UseCase for demand, user needs, business problems, analytical needs, or operational scenarios.
-7. Use BusinessObjective for strategic or operational outcomes, and nest KPIs inside BusinessObjective.
-8. Use Signal for demand signals, risk signals, opportunity signals, quality signals, performance signals, trend signals, or external change signals.
-9. Use ODPG, not ODPC, for explicit relationships between catalog objects.
-10. Use ODPV terms when stable shared ids, labels, definitions, or relationship names are needed.
-11. Include the ODPC version when generating structured catalog outputs.
-12. If no ODPC object fits a concept, treat it as an extension candidate instead of inventing a new meaning for an official ODPC object.
+2. Load /objects/odpc-objects.jsonl for object selection, retrieval, and lightweight lookup.
+3. Load /examples/*.yaml when generating ODPC catalog content.
+4. Load the human-readable ODPC specification when you need object definitions, examples, or attribute-level guidance.
+5. Use /schema/odpc.yaml or /schema/odpc.json to validate ODPC catalog files.
+6. Use Catalog for portfolio containers and catalog-level metadata.
+7. Use ProductReference for lightweight references to data products; do not copy full ODPS product metadata into ProductReference.
+8. Use UseCase for demand, user needs, business problems, analytical needs, or operational scenarios.
+9. Use BusinessObjective for strategic or operational outcomes, and nest KPIs inside BusinessObjective.
+10. Use Signal for demand signals, risk signals, opportunity signals, quality signals, performance signals, trend signals, or external change signals.
+11. Use ODPG, not ODPC, for explicit relationships between catalog objects.
+12. Use ODPV terms when stable shared ids, labels, definitions, or relationship names are needed.
+13. Include the ODPC version when generating structured catalog outputs.
+14. If no ODPC object fits a concept, treat it as an extension candidate instead of inventing a new meaning for an official ODPC object.
 
 Object selection guidance:
 - Use Catalog when describing the portfolio, catalog scope, audience, domains, owner, status, tags, included reusable objects, or graph implementation reference.

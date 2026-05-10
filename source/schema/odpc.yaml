@@ -1,292 +1,575 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
-title: ODPC 1.0 Schema
+$id: "https://opendataproducts.org/odpc-v1.0/schema/odpc.yaml"
+title: ODPC 1.0 Catalog Schema
+description: Schema for Open Data Product Catalogs (ODPC) catalog files.
 type: object
-required: [schema, version, product]
+additionalProperties: false
+required:
+  - schema
+  - version
+  - catalog
 properties:
   schema:
     type: string
     format: uri
+    const: "https://opendataproducts.org/odpc-v1.0/schema/odpc.yaml"
+    description: URI of the ODPC schema used to validate the catalog file.
   version:
-    type: number
-  product:
+    type: string
+    pattern: "^1\\.0$"
+    description: ODPC specification version used by the catalog file.
+  catalog:
+    $ref: "#/$defs/Catalog"
+$defs:
+  LanguageString:
     type: object
-    required: [details]
+    description: Language-tagged human-readable text. English is required; other BCP 47-like language keys may be added.
+    required:
+      - en
     properties:
-      contract:
-        type: object
-        required: [id, type, contractVersion, contractURL]
-        properties:
-          id:
-            type: string
-          type:
-            type: string
-          contractVersion:
-            type: string
-          contractURL:
-            type: string
-            format: uri
+      en:
+        type: string
+        minLength: 1
+    patternProperties:
+      "^[a-z]{2}(-[A-Z]{2})?$":
+        type: string
+        minLength: 1
+    additionalProperties: false
 
-      details:
-        type: object
-        properties:
-          en:
-            type: object
-            required: [name, productID, valueProposition, description, visibility, status, productVersion]
-            properties:
-              name:
-                type: string
-              productID:
-                type: string
-              governanceProfile:
-                description: Indicates the governance maturity applied to the data product. The value describes the expected level of governance enforcement, automation, and operational control associated with the product.
-                type: string
-                enum:
-                  - structured
-                  - enforced
-                  - automated
-                  - audit_ready
-              portfolioPriority:
-                description: Indicates the importance of the data product within the organization's data product portfolio.
-                type: string
-                enum:
-                  - critical
-                  - high
-                  - medium
-                  - low
-              valueProposition:
-                type: string
-              description:
-                type: string
-              visibility:
-                type: string
-              status:
-                type: string
-              productVersion:
-                type: string
+  ExtensionProperties:
+    patternProperties:
+      "^x-":
+        description: Implementation-specific extension property.
 
-      productStrategy:
+  Owner:
+    type: object
+    additionalProperties: false
+    properties:
+      organization:
+        type: string
+      team:
+        type: string
+      role:
+        type: string
+    patternProperties:
+      "^x-": {}
+
+  GraphReference:
+    type: object
+    additionalProperties: false
+    required:
+      - standard
+      - version
+      - uri
+    properties:
+      standard:
+        type: string
+        enum:
+          - ODPG
+          - RDF
+          - JSON-LD
+          - GraphML
+          - openCypher
+          - GQL
+          - Gremlin
+          - GraphSON
+          - GeoSPARQL
+      version:
+        type: string
+      uri:
+        type: string
+        format: uri
+    patternProperties:
+      "^x-": {}
+
+  ProductModel:
+    type: object
+    additionalProperties: false
+    required:
+      - standard
+      - version
+      - format
+      - uri
+    properties:
+      standard:
+        type: string
+      version:
+        type: string
+      format:
+        type: string
+        enum:
+          - yaml
+          - json
+          - html
+          - markdown
+          - api
+          - other
+      uri:
+        type: string
+        format: uri
+    patternProperties:
+      "^x-": {}
+
+  ProductReference:
+    type: object
+    additionalProperties: false
+    required:
+      - id
+      - productID
+      - productVersion
+      - name
+      - description
+      - productModel
+    properties:
+      id:
+        type: string
+        minLength: 1
+      productID:
+        type: string
+        minLength: 1
+      productVersion:
+        type: string
+        minLength: 1
+      name:
+        $ref: "#/$defs/LanguageString"
+      description:
+        $ref: "#/$defs/LanguageString"
+      valueProposition:
+        $ref: "#/$defs/LanguageString"
+      visibility:
+        type: string
+        enum:
+          - public
+          - internal
+          - restricted
+          - private
+      status:
+        type: string
+      type:
+        type: string
+      domains:
+        type: array
+        items:
+          type: string
+      categories:
+        type: array
+        items:
+          type: string
+      standards:
+        type: array
+        items:
+          type: string
+      tags:
+        type: array
+        items:
+          type: string
+      portfolioPriority:
+        type: string
+        enum:
+          - low
+          - medium
+          - high
+          - critical
+      governanceProfile:
+        type: string
+      owner:
+        $ref: "#/$defs/Owner"
+      productModel:
+        $ref: "#/$defs/ProductModel"
+      logoURL:
+        type: string
+        format: uri
+      outputFileFormats:
+        type: array
+        items:
+          type: string
+    patternProperties:
+      "^x-": {}
+
+  UseCase:
+    type: object
+    additionalProperties: false
+    required:
+      - id
+      - name
+      - description
+    properties:
+      id:
+        type: string
+        minLength: 1
+      name:
+        $ref: "#/$defs/LanguageString"
+      description:
+        $ref: "#/$defs/LanguageString"
+      domains:
+        type: array
+        items:
+          type: string
+      stakeholders:
+        type: array
+        items:
+          type: string
+      businessChallenge:
+        $ref: "#/$defs/LanguageString"
+      decision:
+        $ref: "#/$defs/LanguageString"
+      expectedOutcome:
+        $ref: "#/$defs/LanguageString"
+      kpis:
+        type: array
+        items:
+          type: string
+      impactMetrics:
+        type: array
+        items:
+          type: string
+      dataNeeds:
         type: object
+        additionalProperties: false
         properties:
-          status:
+          summary:
+            $ref: "#/$defs/LanguageString"
+          items:
+            type: array
+            items:
+              type: string
+        patternProperties:
+          "^x-": {}
+      scoring:
+        type: object
+        additionalProperties: false
+        properties:
+          businessValue:
             type: string
             enum:
-              - Planned
-              - Active
-              - At Risk
-              - Achieved
-              - Partially Achieved
-              - Cancelled
-              - Expired
-          
+              - low
+              - medium
+              - high
+              - critical
+          effort:
+            type: string
+            enum:
+              - low
+              - medium
+              - high
+          category:
+            type: string
+            enum:
+              - quickWins
+              - juicyAndWorthIt
+              - niceToHave
+              - avoidOrDefer
+          score:
+            type: number
+        patternProperties:
+          "^x-": {}
+      status:
+        type: string
+        enum:
+          - draft
+          - active
+          - paused
+          - completed
+          - retired
+      priority:
+        type: string
+        enum:
+          - low
+          - medium
+          - high
+          - critical
+      tags:
+        type: array
+        items:
+          type: string
+    patternProperties:
+      "^x-": {}
+
+  KPI:
+    type: object
+    additionalProperties: false
+    properties:
+      id:
+        type: string
+      name:
+        $ref: "#/$defs/LanguageString"
+      description:
+        $ref: "#/$defs/LanguageString"
+      unit:
+        type: string
+      baseline:
+        type: object
+        additionalProperties: false
+        properties:
+          value:
+            type: number
+          date:
+            type: string
+            format: date
+        patternProperties:
+          "^x-": {}
+      target:
+        type: object
+        additionalProperties: false
+        properties:
+          value:
+            type: number
+          date:
+            type: string
+            format: date
+        patternProperties:
+          "^x-": {}
+    patternProperties:
+      "^x-": {}
+
+  BusinessObjective:
+    type: object
+    additionalProperties: false
+    required:
+      - id
+      - name
+      - description
+    properties:
+      id:
+        type: string
+        minLength: 1
+      name:
+        $ref: "#/$defs/LanguageString"
+      description:
+        $ref: "#/$defs/LanguageString"
+      strategicAlignment:
+        type: array
+        items:
+          $ref: "#/$defs/LanguageString"
+      owner:
+        $ref: "#/$defs/Owner"
+      expectedOutcomes:
+        type: array
+        items:
+          $ref: "#/$defs/LanguageString"
+      kpis:
+        type: array
+        items:
+          $ref: "#/$defs/KPI"
+      timeframe:
+        type: object
+        additionalProperties: false
+        properties:
           startDate:
             type: string
             format: date
-            description: Date when the product strategy becomes active. Use ISO 8601, (YYYY-MM-DD).
-
           endDate:
             type: string
             format: date
-            description: Date when the product strategy ends or is planned to end. Use ISO 8601, (YYYY-MM-DD).
+        patternProperties:
+          "^x-": {}
+      status:
+        type: string
+        enum:
+          - draft
+          - active
+          - paused
+          - completed
+          - retired
+      priority:
+        type: string
+        enum:
+          - low
+          - medium
+          - high
+          - critical
+    patternProperties:
+      "^x-": {}
 
-          objectives:
+  Signal:
+    type: object
+    additionalProperties: false
+    required:
+      - id
+      - name
+      - description
+      - type
+      - source
+      - observedAt
+    properties:
+      id:
+        type: string
+        minLength: 1
+      name:
+        $ref: "#/$defs/LanguageString"
+      description:
+        $ref: "#/$defs/LanguageString"
+      type:
+        type: string
+        enum:
+          - demand
+          - competitive
+          - market
+          - technology
+          - policy
+          - operational
+          - quality
+          - usage
+          - risk
+          - gap
+      source:
+        type: object
+        additionalProperties: false
+        required:
+          - origin
+          - method
+        properties:
+          origin:
+            type: string
+            enum:
+              - internal
+              - external
+              - mixed
+          method:
+            type: string
+          system:
+            type: string
+          channel:
+            type: string
+          reference:
+            type: string
+        patternProperties:
+          "^x-": {}
+      observedAt:
+        type: string
+        format: date-time
+      strength:
+        type: string
+        enum:
+          - low
+          - medium
+          - high
+          - critical
+      confidence:
+        type: string
+        enum:
+          - low
+          - medium
+          - high
+      opportunity:
+        $ref: "#/$defs/LanguageString"
+      impact:
+        type: object
+        additionalProperties: false
+        properties:
+          valuePotential:
+            type: string
+            enum:
+              - low
+              - medium
+              - high
+              - critical
+          urgency:
+            type: string
+            enum:
+              - low
+              - medium
+              - high
+              - critical
+          affectedDomains:
             type: array
             items:
-              type: object
-              properties:
-                en:
-                  type: string
-
-          strategicAlignment:
+              type: string
+        patternProperties:
+          "^x-": {}
+      evidence:
+        type: object
+        additionalProperties: false
+        properties:
+          summary:
+            $ref: "#/$defs/LanguageString"
+          examples:
             type: array
             items:
-              type: object
-              properties:
-                en:
-                  type: string
+              type: string
+        patternProperties:
+          "^x-": {}
+      recommendedAction:
+        $ref: "#/$defs/LanguageString"
+      status:
+        type: string
+        enum:
+          - new
+          - reviewing
+          - accepted
+          - rejected
+          - converted
+          - archived
+      tags:
+        type: array
+        items:
+          type: string
+    patternProperties:
+      "^x-": {}
 
-          contributesToKPI:
-            type: object
-            required: [id, name, unit, target]
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-              description:
-                type: string
-              unit:
-                type: string
-              target:
-                type: [number, string]
-              direction:
-                type: string
-                enum: [increase, decrease, at_least, at_most, equals]
-              timeframe:
-                type: string
-
-          productKPIs:
+  Catalog:
+    type: object
+    additionalProperties: false
+    required:
+      - id
+      - name
+      - description
+    properties:
+      id:
+        type: string
+        minLength: 1
+      name:
+        $ref: "#/$defs/LanguageString"
+      description:
+        $ref: "#/$defs/LanguageString"
+      owner:
+        $ref: "#/$defs/Owner"
+      scope:
+        type: object
+        additionalProperties: false
+        properties:
+          domains:
             type: array
             items:
-              type: object
-              required: [id, name, unit, target]
-              properties:
-                id:
-                  type: string
-                name:
-                  type: string
-                description:
-                  type: string
-                unit:
-                  type: string
-                target:
-                  type: [number, string]
-                direction:
-                  type: string
-                  enum: [increase, decrease, at_least, at_most, equals]
-                frequency:
-                  type: string
-                owner:
-                  type: string
-                calculation:
-                  type: string
-
-          relatedKPIs:
+              type: string
+          geography:
+            type: string
+          audience:
             type: array
             items:
-              type: object
-              required: [id, name, unit, target]
-              properties:
-                id:
-                  type: string
-                name:
-                  type: string
-                unit:
-                  type: string
-                target:
-                  type: [number, string]
-                direction:
-                  type: string
-                  enum: [increase, decrease, at_least, at_most, equals]
-
-      pricingPlans:
-        type: object
-        properties:
-          declarative:
-            type: object
-            properties:
-              en:
-                type: array
-                items:
-                  type: object
-                  required: [name]
-
-      SLA:
-        type: object
-        properties:
-          declarative:
-            type: object
-            additionalProperties:
-              type: object
-              properties:
-                name:
-                  type: object
-                  properties:
-                    en:
-                      type: string
-                dimensions:
-                  type: array
-                  items:
-                    type: object
-                    required: [dimension, objective, unit]
-                    properties:
-                      dimension:
-                        type: string
-                      objective:
-                        type: integer
-                      unit:
-                        type: string
-                      weight:
-                        type: integer
-                        description: Relative importance of this dimension for product-level scoring. User-editable integer (no decimals).
-
-      dataQuality:
-        type: object
-        properties:
-          declarative:
-            type: object
-            additionalProperties:
-              type: object
-              properties:
-                displaytitle:
-                  type: object
-                  properties:
-                    en:
-                      type: string
-                dimensions:
-                  type: array
-                  items:
-                    type: object
-                    required: [dimension, objective, unit]
-                    properties:
-                      dimension:
-                        type: string
-                      objective:
-                        type: integer
-                      unit:
-                        type: string
-                      weight:
-                        type: integer
-                        description: Relative importance of this dimension for product-level scoring. User-editable integer (no decimals).
-          executable:
-            type: array
-            items:
-              type: object
-              properties:
-                dimension:
-                  type: string
-                type:
-                  type: string
-                  enum:
-                    - SodaCL
-                    - Montecarlo
-                    - DQOps
-                    - Great Expectations
-                    - OpenMetadata
-                    - Custom
-                version:
-                  type: string
-                reference:
-                  type: string
-                  format: uri
-                spec:
-                  type: object
-
-      dataAccess:
-        type: object
-        additionalProperties:
-          type: object
-          required: [outputPorttype]
-
-      paymentGateways:
-        type: object
-        additionalProperties:
-          type: object
-          required: [type, version]
-
-      support:
-        type: object
-        required: [phoneNumber, email]
-
-      license:
-        type: object
-        properties:
-          en:
-            type: object
-            required: [scope, termination, governance]
-
-      dataHolder:
-        type: object
-        properties:
-          en:
-            type: object
-            required: [legalName, email, URL, streetAddress, postalCode, addressLocality, addressCountry]
+              type: string
+        patternProperties:
+          "^x-": {}
+      version:
+        type: string
+      status:
+        type: string
+        enum:
+          - draft
+          - active
+          - deprecated
+          - retired
+      graph:
+        $ref: "#/$defs/GraphReference"
+      productReferences:
+        type: array
+        items:
+          $ref: "#/$defs/ProductReference"
+      useCases:
+        type: array
+        items:
+          $ref: "#/$defs/UseCase"
+      businessObjectives:
+        type: array
+        items:
+          $ref: "#/$defs/BusinessObjective"
+      signals:
+        type: array
+        items:
+          $ref: "#/$defs/Signal"
+      tags:
+        type: array
+        items:
+          type: string
+    patternProperties:
+      "^x-": {}
