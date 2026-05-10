@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import argparse
 import json
 import sys
@@ -45,7 +45,7 @@ def main(argv=None):
     except ModuleNotFoundError:
         print(
             "Missing dependency: jsonschema. Install agent tool dependencies with "
-            "`python3 -m pip install -r scripts/requirements-agent.txt`.",
+            "`python -m pip install -r scripts/requirements-agent.txt`.",
             file=sys.stderr,
         )
         return 2

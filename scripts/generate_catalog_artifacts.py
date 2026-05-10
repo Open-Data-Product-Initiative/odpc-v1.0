@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import argparse
 import json
 import sys
@@ -33,7 +33,7 @@ def main(argv=None):
 
     if args.check:
         if current != expected:
-            print(f"{SCHEMA_JSON}: out of date. Run `python3 scripts/generate_catalog_artifacts.py`.", file=sys.stderr)
+            print(f"{SCHEMA_JSON}: out of date. Run `python scripts/generate_catalog_artifacts.py`.", file=sys.stderr)
             return 1
         print("OK: catalog artifacts are up to date.")
         return 0
@@ -45,4 +45,3 @@ def main(argv=None):
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

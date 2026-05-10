@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import argparse
 import json
 from pathlib import Path
@@ -108,4 +108,3 @@ def main(argv=None):
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
