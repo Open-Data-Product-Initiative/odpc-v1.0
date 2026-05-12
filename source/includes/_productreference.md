@@ -49,7 +49,7 @@ productReference:
 | `productModel.standard` | string | required                          | Product model or standard used by the referenced product, such as `ODPS`, `DPDS`, or `internal`. |
 | `productModel.version`  | string | required                          | Version of the referenced product model or standard, such as ODPS `4.1`.                         |
 | `productModel.format`   | string | required                          | Format of the referenced product model, such as `yaml`, `json`, `toon` or `html`.                       |
-| `productModel.$ref`     | string | required                          | ODPS-aligned reference to the authoritative product definition, as a local file path or URL.      |
+| `productModel.$ref`     | string | required                          | Reference to the authoritative product definition, as a local file path or URL.      |
 
 
 
