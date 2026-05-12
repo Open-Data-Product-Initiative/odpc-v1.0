@@ -372,6 +372,23 @@
             <a href="#catalog-toolkit" class="toc-h1 toc-link" data-title="Catalog Toolkit">Catalog Toolkit</a>
           </li>
           <li>
+            <a href="#ai-agent-usage-patterns" class="toc-h1 toc-link" data-title="AI Agent Usage Patterns">AI Agent Usage Patterns</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#agent-capabilities-enabled-by-odpc" class="toc-h2 toc-link" data-title="Agent capabilities enabled by ODPC">Agent capabilities enabled by ODPC</a>
+                  </li>
+                  <li>
+                    <a href="#common-agent-workflows" class="toc-h2 toc-link" data-title="Common agent workflows">Common agent workflows</a>
+                  </li>
+                  <li>
+                    <a href="#agent-behavior-constraints" class="toc-h2 toc-link" data-title="Agent behavior constraints">Agent behavior constraints</a>
+                  </li>
+                  <li>
+                    <a href="#example-prompts-odpc-enables" class="toc-h2 toc-link" data-title="Example prompts ODPC enables">Example prompts ODPC enables</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#odpc-catalog" class="toc-h1 toc-link" data-title="ODPC Catalog">ODPC Catalog</a>
               <ul class="toc-list-h2">
                   <li>
@@ -719,7 +736,95 @@ Do not edit generated or derived artifacts without checking alignment across llm
 </tbody></table>
 
 <p>The Markdown tables in this specification are intended for human readers. The schema, JSONL, and YAML example files are intended for programmable use, automation, validation, AI retrieval, and catalog tooling.</p>
-<h1 id='odpc-catalog'>ODPC Catalog</h1>
+<h1 id='ai-agent-usage-patterns'>AI Agent Usage Patterns</h1>
+<p>ODPC is designed to be usable by AI agents, catalog tools, retrieval systems, and automation workflows. From an agent perspective, ODPC provides the portfolio operating layer around data products: it names reusable catalog objects, points to authoritative product definitions, separates product metadata from portfolio metadata, and gives tools enough structure to validate, retrieve, compare, and plan.</p>
+
+<p>ODPS defines one data product. ODPC defines the reusable portfolio objects around data products. <a href="https://opendataproducts.org/odpg-v1.0/">ODPG</a> defines the relationships between those objects. ODPV provides shared vocabulary terms. This separation helps agents choose the right source before acting.</p>
+
+<!-- AI_AGENT_USAGE_PATTERNS:
+Use ODPC as the catalog and portfolio layer, not as the full data product definition layer.
+Use ODPS or another referenced product model for detailed data product metadata.
+Use ProductReference.productModel.$ref to resolve the authoritative product definition from a local file path or URL.
+Use ODPG for graph relationships, relationship semantics, traversal, and connected portfolio analysis.
+Use ODPV for stable shared vocabulary terms and relationship names.
+-->
+<h2 id='agent-capabilities-enabled-by-odpc'>Agent capabilities enabled by ODPC</h2>
+<p>Agents can use ODPC to:</p>
+
+<ul>
+<li>discover data products by domain, tag, category, standard, status, priority, owner, or governance profile</li>
+<li>explain portfolio context around a product, including use cases, objectives, signals, ownership, and lifecycle status</li>
+<li>resolve authoritative product definitions through <code>ProductReference.productModel.$ref</code></li>
+<li>validate ODPC catalog files against <code>odpc.yaml</code> or <code>odpc.json</code></li>
+<li>repair incomplete or invalid catalog records using the schema and examples</li>
+<li>generate lightweight <code>ProductReference</code> objects from ODPS files or other product models</li>
+<li>detect portfolio gaps, such as use cases without products, objectives without supporting products, or signals without a response</li>
+<li>prepare graph-ready object records for ODPG or another graph implementation</li>
+<li>support governance review by finding missing owners, stale statuses, incomplete references, or inconsistent standards</li>
+<li>support portfolio planning by combining products, use cases, business objectives, KPIs, signals, and priorities</li>
+</ul>
+<h2 id='common-agent-workflows'>Common agent workflows</h2>
+<table><thead>
+<tr>
+<th>Workflow</th>
+<th>Agent behavior</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Catalog generation</td>
+<td>Scan ODPS files or other product definitions and create ODPC <code>ProductReference</code> entries that point back to the source model.</td>
+</tr>
+<tr>
+<td>Catalog validation</td>
+<td>Validate catalog files, check required fields, detect broken references, and suggest compliant repairs.</td>
+</tr>
+<tr>
+<td>Product discovery</td>
+<td>Answer user questions such as which products exist for a domain, use case, objective, or standard.</td>
+</tr>
+<tr>
+<td>Portfolio explanation</td>
+<td>Summarize why a product exists, what it supports, who owns it, and what objective or signal gives it context.</td>
+</tr>
+<tr>
+<td>Gap analysis</td>
+<td>Find missing products, unsupported use cases, objectives without measurable support, and signals without planned action.</td>
+</tr>
+<tr>
+<td>Graph preparation</td>
+<td>Convert ODPC objects into graph node candidates and prepare relationship candidates for ODPG.</td>
+</tr>
+<tr>
+<td>Governance review</td>
+<td>Identify catalog entries with missing ownership, unclear status, weak governance profile, or inconsistent product model references.</td>
+</tr>
+<tr>
+<td>Migration support</td>
+<td>Convert existing inventories, ODPS files, vendor catalog records, or internal templates into ODPC catalog objects.</td>
+</tr>
+<tr>
+<td>Retrieval and RAG</td>
+<td>Use <code>llms.txt</code>, <code>objects.jsonl</code>, schema files, examples, and include pages to retrieve the correct object definition before generating or editing ODPC content.</td>
+</tr>
+</tbody></table>
+<h2 id='agent-behavior-constraints'>Agent behavior constraints</h2>
+<p>Agents using ODPC should keep object boundaries clear:</p>
+
+<ul>
+<li>Do not copy full ODPS product metadata into <code>ProductReference</code>.</li>
+<li>Do not invent graph relationship fields inside ODPC objects.</li>
+<li>Do not create top-level KPI objects; KPIs belong inside <code>BusinessObjective.kpis</code>.</li>
+<li>Do not treat <code>Catalog.graph.uri</code> as the graph itself; it points to a graph implementation.</li>
+<li>Do not assume every referenced product model is ODPS; use <code>productModel.standard</code>, <code>productModel.version</code>, <code>productModel.format</code>, and <code>productModel.$ref</code>.</li>
+<li>Do not make planning decisions from <code>portfolioPriority</code> alone; combine it with use cases, objectives, signals, governance context, and graph relationships when available.</li>
+</ul>
+<h2 id='example-prompts-odpc-enables'>Example prompts ODPC enables</h2><div class="highlight"><pre class="highlight plaintext"><code>Validate this ODPC catalog and suggest schema-compliant repairs.
+</code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>Generate ProductReference entries for all ODPS files in this folder.
+</code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>Find active smart-city products that support event demand forecasting.
+</code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>Identify use cases without matching product references and propose portfolio gaps.
+</code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>Prepare ODPG node and relationship candidates from this ODPC catalog.
+</code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>Summarize governance issues across products, owners, lifecycle statuses, and referenced product models.
+</code></pre></div><h1 id='odpc-catalog'>ODPC Catalog</h1>
 <p>The <code>Catalog</code> object defines a reusable ODPC catalog. It provides the top-level structure for organizing product references, use cases, business objectives, signals, tags, ownership, scope, lifecycle status, and graph implementation.</p>
 
 <p><img src="images/catalog-d58657f4.png" width="500"></p>
