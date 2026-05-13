@@ -583,16 +583,17 @@ ODPC should also not define graph traversal, graph analytics, or relationship se
 <div class="highlight"><pre class="highlight yaml"><code><span class="na">schema</span><span class="pi">:</span> <span class="s">https://opendataproducts.org/odpc-v1.0/schema/odpc.yaml</span>
 <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
 <span class="na">catalog</span><span class="pi">:</span>
-  <span class="na">id</span><span class="pi">:</span> <span class="s">CAT-001</span>
-  <span class="na">name</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">Urban Mobility Data Product Catalog</span>
-  <span class="na">description</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">Catalog of data products, use cases, objectives,</span> 
-        <span class="s">and signals related to urban mobility.</span>
-  <span class="na">graph</span><span class="pi">:</span>
-    <span class="na">standard</span><span class="pi">:</span> <span class="s">ODPG</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
-    <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/graphs/urban-mobility.graph.yaml</span>
+  <span class="na">meta</span><span class="pi">:</span>
+    <span class="na">id</span><span class="pi">:</span> <span class="s">CAT-001</span>
+    <span class="na">name</span><span class="pi">:</span>
+      <span class="na">en</span><span class="pi">:</span> <span class="s">Urban Mobility Data Product Catalog</span>
+    <span class="na">description</span><span class="pi">:</span>
+      <span class="na">en</span><span class="pi">:</span> <span class="s">Catalog of data products, use cases, objectives,</span> 
+          <span class="s">and signals related to urban mobility.</span>
+    <span class="na">graph</span><span class="pi">:</span>
+      <span class="na">standard</span><span class="pi">:</span> <span class="s">ODPG</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
+      <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/graphs/urban-mobility.graph.yaml</span>
 </code></pre></div>
 <p>The first version of ODPC focuses on these objects:</p>
 
@@ -612,16 +613,17 @@ ODPC should also not define graph traversal, graph analytics, or relationship se
 <div class="highlight"><pre class="highlight yaml"><code><span class="na">schema</span><span class="pi">:</span> <span class="s">https://opendataproducts.org/odpc-v1.0/schema/odpc.yaml</span>
 <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
 <span class="na">catalog</span><span class="pi">:</span>
-  <span class="na">id</span><span class="pi">:</span> <span class="s">CAT-001</span>
-  <span class="na">name</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">Urban Mobility Data Product Catalog</span>
-  <span class="na">description</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">Catalog of data products, use cases, objectives,</span> 
-        <span class="s">and signals related to urban mobility.</span>
-  <span class="na">graph</span><span class="pi">:</span>
-    <span class="na">standard</span><span class="pi">:</span> <span class="s">ODPG</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
-    <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/graphs/urban-mobility.graph.yaml</span>
+  <span class="na">meta</span><span class="pi">:</span>
+    <span class="na">id</span><span class="pi">:</span> <span class="s">CAT-001</span>
+    <span class="na">name</span><span class="pi">:</span>
+      <span class="na">en</span><span class="pi">:</span> <span class="s">Urban Mobility Data Product Catalog</span>
+    <span class="na">description</span><span class="pi">:</span>
+      <span class="na">en</span><span class="pi">:</span> <span class="s">Catalog of data products, use cases, objectives,</span> 
+          <span class="s">and signals related to urban mobility.</span>
+    <span class="na">graph</span><span class="pi">:</span>
+      <span class="na">standard</span><span class="pi">:</span> <span class="s">ODPG</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
+      <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/graphs/urban-mobility.graph.yaml</span>
 </code></pre></div>
 <p>ODPC is published in several forms for different users and tools. This specification provides the human-readable documentation, while the schema, catalog object records, and example files provide machine-readable resources for validation, catalog integration, AI retrieval, and automation. Use <code>odpc.yaml</code> or <code>odpc.json</code> to validate catalog files, <code>objects.jsonl</code> for lightweight object selection and retrieval, and the catalog examples when generating or repairing ODPC YAML.</p>
 
@@ -814,7 +816,7 @@ Use ODPV for stable shared vocabulary terms and relationship names.
 <li>Do not copy full ODPS product metadata into <code>ProductReference</code>.</li>
 <li>Do not invent graph relationship fields inside ODPC objects.</li>
 <li>Do not create top-level KPI objects; KPIs belong inside <code>BusinessObjective.kpis</code>.</li>
-<li>Do not treat <code>Catalog.graph.uri</code> as the graph itself; it points to a graph implementation.</li>
+<li>Do not treat <code>Catalog.meta.graph.uri</code> as the graph itself; it points to a graph implementation.</li>
 <li>Do not assume every referenced product model is ODPS; use <code>productModel.standard</code>, <code>productModel.version</code>, <code>productModel.format</code>, and <code>productModel.$ref</code>.</li>
 <li>Do not make planning decisions from <code>portfolioPriority</code> alone; combine it with use cases, objectives, signals, governance context, and graph relationships when available.</li>
 </ul>
@@ -825,15 +827,15 @@ Use ODPV for stable shared vocabulary terms and relationship names.
 </code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>Prepare ODPG node and relationship candidates from this ODPC catalog.
 </code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>Summarize governance issues across products, owners, lifecycle statuses, and referenced product models.
 </code></pre></div><h1 id='odpc-catalog'>ODPC Catalog</h1>
-<p>The <code>Catalog</code> object defines a reusable ODPC catalog. It provides the top-level structure for organizing product references, use cases, business objectives, signals, tags, ownership, scope, lifecycle status, and graph implementation.</p>
+<p>The <code>Catalog</code> object defines a reusable ODPC catalog. It provides the top-level structure for organizing product references, use cases, business objectives, signals, and catalog metadata such as ownership, scope, lifecycle status, tags, and graph implementation.</p>
 
 <p><img src="images/catalog-d58657f4.png" width="500"></p>
 
 <p>In ODPC, the <code>Catalog</code> object acts as the portfolio container. It helps organizations group related data products and demand-side objects around a domain, organization, geography, audience, or strategic theme.</p>
 
-<p>The <code>Catalog</code> object can include product references, use cases, business objectives, and signals directly as reusable catalog objects. It can also define where the catalog graph is implemented through the <code>graph</code> attribute.</p>
+<p>The <code>Catalog</code> object can include product references, use cases, business objectives, and signals directly as reusable catalog objects. It can also define where the catalog graph is implemented through the <code>meta.graph</code> attribute.</p>
 
-<p>The <code>graph</code> attribute identifies the graph standard, version, and URI used for the catalog graph. The graph can be implemented with <a href="https://opendataproducts.org/odpg-v1.0/">ODPG</a> or another supported graph standard, such as <code>RDF</code>, <code>JSON-LD</code>, <code>GraphML</code>, <code>openCypher</code>, <code>GQL</code>, <code>Gremlin</code>, <code>GraphSON</code>, or <code>GeoSPARQL</code>.</p>
+<p>The <code>meta.graph</code> attribute identifies the graph standard, version, and URI used for the catalog graph. The graph can be implemented with <a href="https://opendataproducts.org/odpg-v1.0/">ODPG</a> or another supported graph standard, such as <code>RDF</code>, <code>JSON-LD</code>, <code>GraphML</code>, <code>openCypher</code>, <code>GQL</code>, <code>Gremlin</code>, <code>GraphSON</code>, or <code>GeoSPARQL</code>.</p>
 
 <p>The <code>Catalog</code> object should remain focused on catalog structure and portfolio organization. It should not define detailed product metadata, relationship semantics, nodes, edges, or graph rules. Detailed product definitions belong to product models such as <code>ODPS</code>. Relationship modeling belongs to the selected graph standard, with <a href="https://opendataproducts.org/odpg-v1.0/">ODPG</a> as the native standard for the OpenDataProducts.org specification family.</p>
 
@@ -845,12 +847,13 @@ Use ODPV for stable shared vocabulary terms and relationship names.
 <div class="highlight"><pre class="highlight yaml"><code><span class="na">schema</span><span class="pi">:</span> <span class="s">https://opendataproducts.org/odpc-v1.0/schema/odpc.yaml</span>
 <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
 <span class="na">catalog</span><span class="pi">:</span>
-  <span class="na">id</span><span class="pi">:</span> <span class="s">CAT-001</span>
-  <span class="na">name</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">Urban Mobility Data Product Catalog</span>
-  <span class="na">description</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">Catalog of data products, use cases, objectives,</span> 
-        <span class="s">and signals related to urban mobility.</span>
+  <span class="na">meta</span><span class="pi">:</span>
+    <span class="na">id</span><span class="pi">:</span> <span class="s">CAT-001</span>
+    <span class="na">name</span><span class="pi">:</span>
+      <span class="na">en</span><span class="pi">:</span> <span class="s">Urban Mobility Data Product Catalog</span>
+    <span class="na">description</span><span class="pi">:</span>
+      <span class="na">en</span><span class="pi">:</span> <span class="s">Catalog of data products, use cases, objectives,</span> 
+          <span class="s">and signals related to urban mobility.</span>
 </code></pre></div>
 <table><thead>
 <tr>
@@ -879,31 +882,37 @@ Use ODPV for stable shared vocabulary terms and relationship names.
 <td>Top-level object that defines an ODPC catalog.</td>
 </tr>
 <tr>
-<td><code>id</code></td>
+<td><code>meta</code></td>
+<td>object</td>
+<td style="text-align: right">✓</td>
+<td>Catalog metadata, including identity, purpose, ownership, scope, lifecycle, and graph reference.</td>
+</tr>
+<tr>
+<td><code>meta.id</code></td>
 <td>string</td>
 <td style="text-align: right">✓</td>
 <td>Stable identifier for the catalog.</td>
 </tr>
 <tr>
-<td><code>name</code></td>
+<td><code>meta.name</code></td>
 <td>object</td>
 <td style="text-align: right">✓</td>
 <td>Human-readable catalog name using language-tagged strings.</td>
 </tr>
 <tr>
-<td><code>name.en</code></td>
+<td><code>meta.name.en</code></td>
 <td>string</td>
 <td style="text-align: right">✓</td>
 <td>English catalog name.</td>
 </tr>
 <tr>
-<td><code>description</code></td>
+<td><code>meta.description</code></td>
 <td>object</td>
 <td style="text-align: right">✓</td>
 <td>Short explanation of the catalog purpose and scope using language-tagged strings.</td>
 </tr>
 <tr>
-<td><code>description.en</code></td>
+<td><code>meta.description.en</code></td>
 <td>string</td>
 <td style="text-align: right">✓</td>
 <td>English catalog description.</td>
@@ -914,35 +923,40 @@ Use ODPV for stable shared vocabulary terms and relationship names.
 <p>Example of catalog object usage:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight yaml"><code><span class="na">catalog</span><span class="pi">:</span>
-  <span class="na">id</span><span class="pi">:</span> <span class="s">CAT-001</span>
-  <span class="na">name</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">Urban Mobility Data Product Catalog</span>
-  <span class="na">description</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">Catalog of data products, use cases, objectives,</span> 
-        <span class="s">and signals related to urban mobility.</span>
+  <span class="na">meta</span><span class="pi">:</span>
+    <span class="na">id</span><span class="pi">:</span> <span class="s">CAT-001</span>
+    <span class="na">name</span><span class="pi">:</span>
+      <span class="na">en</span><span class="pi">:</span> <span class="s">Urban Mobility Data Product Catalog</span>
+    <span class="na">description</span><span class="pi">:</span>
+      <span class="na">en</span><span class="pi">:</span> <span class="s">Catalog of data products, use cases, objectives,</span> 
+          <span class="s">and signals related to urban mobility.</span>
 
-  <span class="na">owner</span><span class="pi">:</span>
-    <span class="na">organization</span><span class="pi">:</span> <span class="s">Example Transport Authority</span>
-    <span class="na">team</span><span class="pi">:</span> <span class="s">Business Analytics</span>
-    <span class="na">role</span><span class="pi">:</span> <span class="s">Data Product Portfolio Manager</span>
+    <span class="na">owner</span><span class="pi">:</span>
+      <span class="na">organization</span><span class="pi">:</span> <span class="s">Example Transport Authority</span>
+      <span class="na">team</span><span class="pi">:</span> <span class="s">Business Analytics</span>
+      <span class="na">role</span><span class="pi">:</span> <span class="s">Data Product Portfolio Manager</span>
 
-  <span class="na">scope</span><span class="pi">:</span>
-    <span class="na">domains</span><span class="pi">:</span>
+    <span class="na">scope</span><span class="pi">:</span>
+      <span class="na">domains</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">smart-city</span>
+        <span class="pi">-</span> <span class="s">mobility</span>
+        <span class="pi">-</span> <span class="s">transport</span>
+      <span class="na">geography</span><span class="pi">:</span> <span class="s">Abu Dhabi</span>
+      <span class="na">audience</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">internal</span>
+        <span class="pi">-</span> <span class="s">public</span>
+
+    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0.0"</span>
+    <span class="na">status</span><span class="pi">:</span> <span class="s">active</span>
+
+    <span class="na">graph</span><span class="pi">:</span>
+      <span class="na">standard</span><span class="pi">:</span> <span class="s">ODPG</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
+      <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/graphs/urba.graph.yaml</span>
+    <span class="na">tags</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">smart-city</span>
       <span class="pi">-</span> <span class="s">mobility</span>
-      <span class="pi">-</span> <span class="s">transport</span>
-    <span class="na">geography</span><span class="pi">:</span> <span class="s">Abu Dhabi</span>
-    <span class="na">audience</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">internal</span>
-      <span class="pi">-</span> <span class="s">public</span>
-
-  <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0.0"</span>
-  <span class="na">status</span><span class="pi">:</span> <span class="s">active</span>
-
-  <span class="na">graph</span><span class="pi">:</span>
-    <span class="na">standard</span><span class="pi">:</span> <span class="s">ODPG</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
-    <span class="na">uri</span><span class="pi">:</span> <span class="s">https://example.org/graphs/urba.graph.yaml</span>
+      <span class="pi">-</span> <span class="s">events</span>
 
   <span class="na">productReferences</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s">DP-001</span>
@@ -984,10 +998,6 @@ Use ODPV for stable shared vocabulary terms and relationship names.
         <span class="na">en</span><span class="pi">:</span> <span class="s">Indicates rising demand for event-related</span> 
             <span class="s">mobility and public service planning.</span>
 
-  <span class="na">tags</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="s">smart-city</span>
-    <span class="pi">-</span> <span class="s">mobility</span>
-    <span class="pi">-</span> <span class="s">events</span>
 </code></pre></div>
 <table><thead>
 <tr>
@@ -998,88 +1008,94 @@ Use ODPV for stable shared vocabulary terms and relationship names.
 </tr>
 </thead><tbody>
 <tr>
-<td><code>owner</code></td>
+<td><code>meta.owner</code></td>
 <td>object</td>
 <td style="text-align: right"></td>
 <td>Ownership information for the catalog.</td>
 </tr>
 <tr>
-<td><code>owner.organization</code></td>
+<td><code>meta.owner.organization</code></td>
 <td>string</td>
 <td style="text-align: right"></td>
 <td>Organization responsible for the catalog.</td>
 </tr>
 <tr>
-<td><code>owner.team</code></td>
+<td><code>meta.owner.team</code></td>
 <td>string</td>
 <td style="text-align: right"></td>
 <td>Team responsible for the catalog.</td>
 </tr>
 <tr>
-<td><code>owner.role</code></td>
+<td><code>meta.owner.role</code></td>
 <td>string</td>
 <td style="text-align: right"></td>
 <td>Responsible role, such as <code>Data Product Portfolio Manager</code>.</td>
 </tr>
 <tr>
-<td><code>scope</code></td>
+<td><code>meta.scope</code></td>
 <td>object</td>
 <td style="text-align: right"></td>
 <td>Business, organizational, geographic, or audience scope of the catalog.</td>
 </tr>
 <tr>
-<td><code>scope.domains</code></td>
+<td><code>meta.scope.domains</code></td>
 <td>array of strings</td>
 <td style="text-align: right"></td>
 <td>Domains covered by the catalog.</td>
 </tr>
 <tr>
-<td><code>scope.geography</code></td>
+<td><code>meta.scope.geography</code></td>
 <td>string</td>
 <td style="text-align: right"></td>
 <td>Geographic scope of the catalog, if relevant.</td>
 </tr>
 <tr>
-<td><code>scope.audience</code></td>
+<td><code>meta.scope.audience</code></td>
 <td>array of strings</td>
 <td style="text-align: right"></td>
 <td>Intended audience for catalog use, such as <code>internal</code>, <code>partner</code>, <code>public</code>, or <code>commercial</code>.</td>
 </tr>
 <tr>
-<td><code>version</code></td>
+<td><code>meta.version</code></td>
 <td>string</td>
 <td style="text-align: right"></td>
 <td>Catalog version.</td>
 </tr>
 <tr>
-<td><code>status</code></td>
+<td><code>meta.status</code></td>
 <td>string</td>
 <td style="text-align: right"></td>
 <td>Lifecycle status of the catalog, such as <code>draft</code>, <code>active</code>, <code>deprecated</code>, or <code>retired</code>.</td>
 </tr>
 <tr>
-<td><code>graph</code></td>
+<td><code>meta.graph</code></td>
 <td>object</td>
 <td style="text-align: right"></td>
 <td>Defines the graph specification used to describe relationships between catalog objects.</td>
 </tr>
 <tr>
-<td><code>graph.standard</code></td>
+<td><code>meta.graph.standard</code></td>
 <td>string</td>
 <td style="text-align: right"></td>
 <td>Graph standard used for the catalog graph. Default is <a href="https://opendataproducts.org/odpg-v1.0/">ODPG</a> for Open Data Product Graphs. Other options: <code>RDF</code> for semantic web graphs, <code>JSON-LD</code> for linked data in JSON, <code>GraphML</code> for graph exchange, <code>openCypher</code> for property graph scripts, <code>GQL</code> for ISO property graph queries, <code>Gremlin</code> for graph traversal, <code>GraphSON</code> for TinkerPop-style graph JSON, or <code>GeoSPARQL</code> for geospatial RDF graphs.</td>
 </tr>
 <tr>
-<td><code>graph.version</code></td>
+<td><code>meta.graph.version</code></td>
 <td>string</td>
-<td style="text-align: right">✓ when <code>graph</code> is used</td>
+<td style="text-align: right">✓ when <code>meta.graph</code> is used</td>
 <td>Version of the graph standard.</td>
 </tr>
 <tr>
-<td><code>graph.uri</code></td>
+<td><code>meta.graph.uri</code></td>
 <td>string</td>
-<td style="text-align: right">✓ when <code>graph</code> is used</td>
+<td style="text-align: right">✓ when <code>meta.graph</code> is used</td>
 <td>URI pointing to the graph definition.</td>
+</tr>
+<tr>
+<td><code>meta.tags</code></td>
+<td>array of strings</td>
+<td style="text-align: right"></td>
+<td>Keywords used for search, grouping, filtering, and portfolio analysis.</td>
 </tr>
 <tr>
 <td><code>productReferences</code></td>
@@ -1104,12 +1120,6 @@ Use ODPV for stable shared vocabulary terms and relationship names.
 <td>array of objects</td>
 <td style="text-align: right"></td>
 <td>List of signals included in the catalog. Each item follows the <code>Signal</code> object schema.</td>
-</tr>
-<tr>
-<td><code>tags</code></td>
-<td>array of strings</td>
-<td style="text-align: right"></td>
-<td>Keywords used for search, grouping, filtering, and portfolio analysis.</td>
 </tr>
 </tbody></table>
 <h1 id='odpc-productreference'>ODPC ProductReference</h1>
@@ -2308,13 +2318,14 @@ Use ODPV for stable shared vocabulary terms and relationship names.
 <p>Example of extension usage:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight yaml"><code><span class="na">catalog</span><span class="pi">:</span>
-  <span class="na">id</span><span class="pi">:</span> <span class="s">CAT-001</span>
-  <span class="na">name</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">Urban Mobility Data Product Catalog</span>
-  <span class="na">description</span><span class="pi">:</span>
-    <span class="na">en</span><span class="pi">:</span> <span class="s">Catalog of reusable portfolio objects related to urban mobility.</span>
-  <span class="na">x-internal-id</span><span class="pi">:</span> <span class="s">foobar123</span>
-  <span class="na">x-source-system</span><span class="pi">:</span> <span class="s">internal-catalog-platform</span>
+  <span class="na">meta</span><span class="pi">:</span>
+    <span class="na">id</span><span class="pi">:</span> <span class="s">CAT-001</span>
+    <span class="na">name</span><span class="pi">:</span>
+      <span class="na">en</span><span class="pi">:</span> <span class="s">Urban Mobility Data Product Catalog</span>
+    <span class="na">description</span><span class="pi">:</span>
+      <span class="na">en</span><span class="pi">:</span> <span class="s">Catalog of reusable portfolio objects related to urban mobility.</span>
+    <span class="na">x-internal-id</span><span class="pi">:</span> <span class="s">foobar123</span>
+    <span class="na">x-source-system</span><span class="pi">:</span> <span class="s">internal-catalog-platform</span>
 </code></pre></div>
 <table><thead>
 <tr>
@@ -2384,7 +2395,7 @@ Use ODPV for stable shared vocabulary terms and relationship names.
 <tr>
 <td>Data product graph</td>
 <td><code>DataProductGraph</code></td>
-<td>Referenced from ODPC through <code>Catalog.graph</code>; graph structures belong to <a href="https://opendataproducts.org/odpg-v1.0/">ODPG</a> or another graph standard.</td>
+<td>Referenced from ODPC through <code>Catalog.meta.graph</code>; graph structures belong to <a href="https://opendataproducts.org/odpg-v1.0/">ODPG</a> or another graph standard.</td>
 </tr>
 <tr>
 <td>Identifier</td>
@@ -2394,7 +2405,7 @@ Use ODPV for stable shared vocabulary terms and relationship names.
 <tr>
 <td>Reference</td>
 <td><code>Reference</code></td>
-<td>Used in ODPC for pointers such as <code>ProductReference.productModel.$ref</code> and <code>Catalog.graph.uri</code>.</td>
+<td>Used in ODPC for pointers such as <code>ProductReference.productModel.$ref</code> and <code>Catalog.meta.graph.uri</code>.</td>
 </tr>
 <tr>
 <td>Owner</td>
@@ -2416,7 +2427,7 @@ Use ODPV for stable shared vocabulary terms and relationship names.
 </thead><tbody>
 <tr>
 <td><code>Catalog</code></td>
-<td>The ODPC object that implements an ODPV <code>DataProductCatalog</code>. It is the top-level portfolio container for product references, use cases, business objectives, signals, ownership, scope, lifecycle status, tags, and graph implementation metadata.</td>
+<td>The ODPC object that implements an ODPV <code>DataProductCatalog</code>. It is the top-level portfolio container for product references, use cases, business objectives, signals, and catalog metadata such as ownership, scope, lifecycle status, tags, and graph implementation reference.</td>
 </tr>
 <tr>
 <td><code>ProductReference</code></td>
@@ -2432,7 +2443,7 @@ Use ODPV for stable shared vocabulary terms and relationship names.
 </tr>
 <tr>
 <td><code>Graph standard</code></td>
-<td>The graph standard used to implement catalog relationships through <code>Catalog.graph</code>, such as <a href="https://opendataproducts.org/odpg-v1.0/">ODPG</a>, <code>RDF</code>, <code>JSON-LD</code>, <code>GraphML</code>, <code>openCypher</code>, <code>GQL</code>, <code>Gremlin</code>, <code>GraphSON</code>, or <code>GeoSPARQL</code>.</td>
+<td>The graph standard used to implement catalog relationships through <code>Catalog.meta.graph</code>, such as <a href="https://opendataproducts.org/odpg-v1.0/">ODPG</a>, <code>RDF</code>, <code>JSON-LD</code>, <code>GraphML</code>, <code>openCypher</code>, <code>GQL</code>, <code>Gremlin</code>, <code>GraphSON</code>, or <code>GeoSPARQL</code>.</td>
 </tr>
 <tr>
 <td><code>Extension property</code></td>

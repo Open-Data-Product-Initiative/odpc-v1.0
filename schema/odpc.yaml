@@ -506,7 +506,7 @@ $defs:
     patternProperties:
       "^x-": {}
 
-  Catalog:
+  CatalogMeta:
     type: object
     additionalProperties: false
     required:
@@ -550,6 +550,21 @@ $defs:
           - retired
       graph:
         $ref: "#/$defs/GraphReference"
+      tags:
+        type: array
+        items:
+          type: string
+    patternProperties:
+      "^x-": {}
+
+  Catalog:
+    type: object
+    additionalProperties: false
+    required:
+      - meta
+    properties:
+      meta:
+        $ref: "#/$defs/CatalogMeta"
       productReferences:
         type: array
         items:
@@ -566,9 +581,5 @@ $defs:
         type: array
         items:
           $ref: "#/$defs/Signal"
-      tags:
-        type: array
-        items:
-          type: string
     patternProperties:
       "^x-": {}
