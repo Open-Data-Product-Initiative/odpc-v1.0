@@ -41,7 +41,13 @@ class AgentArtifactsTest(unittest.TestCase):
 
         catalog_ref = schema["properties"]["catalog"]["$ref"].split("/")[-1]
         catalog = schema["$defs"][catalog_ref]
-        self.assertEqual(catalog["required"], ["id", "name", "description"])
+        self.assertEqual(catalog["required"], ["meta"])
+        self.assertIn("meta", catalog["properties"])
+        meta_ref = catalog["properties"]["meta"]["$ref"].split("/")[-1]
+        meta = schema["$defs"][meta_ref]
+        self.assertEqual(meta["required"], ["id", "name", "description"])
+        self.assertIn("tags", meta["properties"])
+        self.assertNotIn("tags", catalog["properties"])
         for collection in ["productReferences", "useCases", "businessObjectives", "signals"]:
             self.assertIn(collection, catalog["properties"])
 
@@ -61,11 +67,13 @@ class AgentArtifactsTest(unittest.TestCase):
         minimal = load_yaml(SOURCE / "catalog" / "examples" / "minimal.yaml")
         self.assertEqual(minimal["schema"], "https://opendataproducts.org/odpc-v1.0/schema/odpc.yaml")
         self.assertEqual(minimal["version"], "1.0")
-        assert_named_object(minimal["catalog"], "CAT-")
+        assert_named_object(minimal["catalog"]["meta"], "CAT-")
 
         full = load_yaml(SOURCE / "catalog" / "examples" / "full.yaml")
         catalog = full["catalog"]
-        assert_named_object(catalog, "CAT-")
+        assert_named_object(catalog["meta"], "CAT-")
+        self.assertIn("tags", catalog["meta"])
+        self.assertNotIn("tags", catalog)
         assert_named_object(catalog["productReferences"][0], "DP-")
         assert_named_object(catalog["useCases"][0], "UC-")
         assert_named_object(catalog["businessObjectives"][0], "BO-")

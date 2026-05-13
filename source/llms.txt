@@ -45,7 +45,7 @@ Knowledge base:
 - https://opendataproducts.org/howto/
 
 Core ODPC objects:
-- Catalog: top-level portfolio container for organizing product references, use cases, business objectives, signals, ownership, scope, lifecycle status, tags, and graph implementation metadata.
+- Catalog: top-level portfolio container for organizing product references, use cases, business objectives, signals, and catalog metadata such as ownership, scope, lifecycle status, tags, and graph implementation reference.
 - ProductReference: lightweight catalog reference to a data product. It identifies the product and points to the authoritative product definition through productModel. Detailed product metadata belongs in ODPS or another referenced product model.
 - UseCase: reusable demand-side object describing a business, operational, analytical, policy, or user need that data products may support.
 - BusinessObjective: reusable outcome object describing a higher-level business, operational, policy, or strategic objective. KPIs are nested inside BusinessObjective, not defined as top-level ODPC objects.
@@ -79,7 +79,7 @@ Recommended agent workflow:
 15. If no ODPC object fits a concept, treat it as an extension candidate instead of inventing a new meaning for an official ODPC object.
 
 Object selection guidance:
-- Use Catalog when describing the portfolio, catalog scope, audience, domains, owner, status, tags, included reusable objects, or graph implementation reference.
+- Use Catalog when describing the portfolio, catalog metadata, scope, audience, domains, owner, status, tags, included reusable objects, or graph implementation reference.
 - Use ProductReference when describing a data product in catalog form and pointing to the authoritative product definition.
 - Use UseCase when describing why data products are needed, who benefits, what decision or process is supported, or what value scenario should be enabled.
 - Use BusinessObjective when describing measurable strategic, policy, business, or operational outcomes.
@@ -113,16 +113,17 @@ Extension guidance:
 Extension example:
 ```yaml
 catalog:
-  id: CAT-001
-  name:
-    en: Urban Mobility Data Product Catalog
-  description:
-    en: Catalog of reusable portfolio objects related to urban mobility.
-  x-internal-id: foobar123
-  x-source-system: internal-catalog-platform
-  x-sync:
-    jobId: sync-2026-05-10-001
-    lastSyncedAt: 2026-05-10T12:00:00Z
+  meta:
+    id: CAT-001
+    name:
+      en: Urban Mobility Data Product Catalog
+    description:
+      en: Catalog of reusable portfolio objects related to urban mobility.
+    x-internal-id: foobar123
+    x-source-system: internal-catalog-platform
+    x-sync:
+      jobId: sync-2026-05-10-001
+      lastSyncedAt: 2026-05-10T12:00:00Z
 ```
 
 When returning or generating an ODPC object, include when available:

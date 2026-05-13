@@ -16,13 +16,14 @@ Useful and widely adopted extensions may become candidates for future versions o
 
 ```yml
 catalog:
-  id: CAT-001
-  name:
-    en: Urban Mobility Data Product Catalog
-  description:
-    en: Catalog of reusable portfolio objects related to urban mobility.
-  x-internal-id: foobar123
-  x-source-system: internal-catalog-platform
+  meta:
+    id: CAT-001
+    name:
+      en: Urban Mobility Data Product Catalog
+    description:
+      en: Catalog of reusable portfolio objects related to urban mobility.
+    x-internal-id: foobar123
+    x-source-system: internal-catalog-platform
 ```
 
 | <div style="width:150px">Element name</div>   | Type  | Options  | Description  |

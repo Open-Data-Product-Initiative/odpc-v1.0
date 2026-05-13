@@ -64,7 +64,12 @@ def check_schema():
     assert "product" not in json_schema["properties"], "JSON schema must not use product root"
 
     catalog = schema["$defs"][schema["properties"]["catalog"]["$ref"].split("/")[-1]]
-    assert catalog["required"] == ["id", "name", "description"], "Catalog required fields changed unexpectedly"
+    assert catalog["required"] == ["meta"], "Catalog must require meta"
+    assert "meta" in catalog["properties"], "Catalog must define meta"
+    meta = schema["$defs"][catalog["properties"]["meta"]["$ref"].split("/")[-1]]
+    assert meta["required"] == ["id", "name", "description"], "Catalog meta required fields changed unexpectedly"
+    assert "tags" in meta["properties"], "Catalog tags must be defined in meta"
+    assert "tags" not in catalog["properties"], "Catalog tags must not be defined at catalog root"
     for collection in ["productReferences", "useCases", "businessObjectives", "signals"]:
         assert collection in catalog["properties"], f"Catalog missing {collection}"
 
@@ -78,10 +83,12 @@ def check_examples():
     minimal = load_yaml(EXAMPLES_DIR / "minimal.yaml")
     assert minimal["schema"] == "https://opendataproducts.org/odpc-v1.0/schema/odpc.yaml"
     assert minimal["version"] == "1.0"
-    assert_named_object(minimal["catalog"], "CAT-", "catalog")
+    assert_named_object(minimal["catalog"]["meta"], "CAT-", "catalog.meta")
 
     full = load_yaml(EXAMPLES_DIR / "full.yaml")["catalog"]
-    assert_named_object(full, "CAT-", "catalog")
+    assert_named_object(full["meta"], "CAT-", "catalog.meta")
+    assert "tags" in full["meta"], "full catalog example must put tags in catalog.meta"
+    assert "tags" not in full, "full catalog example must not put tags at catalog root"
     assert_named_object(full["productReferences"][0], "DP-", "productReferences[0]")
     assert_named_object(full["useCases"][0], "UC-", "useCases[0]")
     assert_named_object(full["businessObjectives"][0], "BO-", "businessObjectives[0]")

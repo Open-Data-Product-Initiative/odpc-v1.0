@@ -128,16 +128,17 @@ ODPC should also not define graph traversal, graph analytics, or relationship se
 schema: https://opendataproducts.org/odpc-v1.0/schema/odpc.yaml
 version: "1.0"
 catalog:
-  id: CAT-001
-  name:
-    en: Urban Mobility Data Product Catalog
-  description:
-    en: Catalog of data products, use cases, objectives, 
-        and signals related to urban mobility.
-  graph:
-    standard: ODPG
-    version: "1.0"
-    uri: https://example.org/graphs/urban-mobility.graph.yaml
+  meta:
+    id: CAT-001
+    name:
+      en: Urban Mobility Data Product Catalog
+    description:
+      en: Catalog of data products, use cases, objectives, 
+          and signals related to urban mobility.
+    graph:
+      standard: ODPG
+      version: "1.0"
+      uri: https://example.org/graphs/urban-mobility.graph.yaml
 ```
 
 The first version of ODPC focuses on these objects:
